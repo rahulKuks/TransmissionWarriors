@@ -472,6 +472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81bb0161cb6a8ee4d975bce4a0c18791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerWorlds: []
 --- !u!4 &239968529
 Transform:
   m_ObjectHideFlags: 0
@@ -934,7 +935,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03753f37f79de1843a86be0a907080cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 1782711050802002, guid: 4e2160ae68620da4896e950ad9c80287,
+  enemyPrefab: {fileID: 1452772182362828, guid: af01f2c489f83ed49b5093cda10aba0e,
     type: 2}
   spawnPlanes:
   - {fileID: 729604524}
@@ -1719,6 +1720,8 @@ MonoBehaviour:
   jumpPower: 0.5
   rb: {fileID: 1125785961}
   jumpCD: 0.5
+  fireCD: 0.15
+  gun: {fileID: 0}
 --- !u!54 &1125785961
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2090,7 +2093,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03753f37f79de1843a86be0a907080cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 1782711050802002, guid: 4e2160ae68620da4896e950ad9c80287,
+  enemyPrefab: {fileID: 1452772182362828, guid: af01f2c489f83ed49b5093cda10aba0e,
     type: 2}
   spawnPlanes:
   - {fileID: 672728367}
@@ -2145,6 +2148,8 @@ MonoBehaviour:
   jumpPower: 0.5
   rb: {fileID: 1823388170}
   jumpCD: 0.5
+  fireCD: 0.15
+  gun: {fileID: 0}
 --- !u!54 &1823388170
 Rigidbody:
   m_ObjectHideFlags: 0
