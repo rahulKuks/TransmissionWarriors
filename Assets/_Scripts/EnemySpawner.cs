@@ -27,24 +27,31 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy(int layerMask)
     {
-        BoxCollider randomSpawnPlane = spawnPlanes[Random.Range(0, spawnPlanes.Length - 1)];
-        
         GameObject newEnemy = null;
         newEnemy = Instantiate(enemyPrefab, Vector3.zero, Quaternion.identity, transform);
+        newEnemy.layer = layerMask;
 
-        BoxCollider newEnemyBox = newEnemy.GetComponent<BoxCollider>();
-        if(newEnemyBox != null)
+        SetupNewEnemy(newEnemy);
+    }
+
+    private void SetupNewEnemy(GameObject newEnemy)
+    {
+        if(newEnemy != null)
         {
-            float xPlaneExtent = (1-safeZonePercent) * randomSpawnPlane.bounds.extents.x;
-            float zPlaneExtent = (1-safeZonePercent) * randomSpawnPlane.bounds.extents.z;
-            float RandomXinPlane = Random.Range(-xPlaneExtent, xPlaneExtent);
-            float RandomZinPlane = Random.Range(-zPlaneExtent, zPlaneExtent);
-            Vector3 spawnPosition = new Vector3(RandomXinPlane, newEnemyBox.size.y/2, RandomZinPlane) + randomSpawnPlane.transform.localPosition;
-            newEnemy.transform.localPosition = spawnPosition;
-            newEnemy.layer = layerMask;
+            BoxCollider randomSpawnPlane = spawnPlanes[Random.Range(0, spawnPlanes.Length - 1)];
+            BoxCollider newEnemyBox = newEnemy.GetComponent<BoxCollider>();
+            if (newEnemyBox != null)
+            {
+                float xPlaneExtent = (1 - safeZonePercent) * randomSpawnPlane.bounds.extents.x;
+                float zPlaneExtent = (1 - safeZonePercent) * randomSpawnPlane.bounds.extents.z;
+                float RandomXinPlane = Random.Range(-xPlaneExtent, xPlaneExtent);
+                float RandomZinPlane = Random.Range(-zPlaneExtent, zPlaneExtent);
+                Vector3 spawnPosition = new Vector3(RandomXinPlane, newEnemyBox.size.y / 2, RandomZinPlane) + randomSpawnPlane.transform.localPosition;
+                newEnemy.transform.localPosition = spawnPosition;
 
-            EnemyBase enemyAI = newEnemy.GetComponent<EnemyBase>();
-            enemyAI.target = playerWorld.CurrentPlayerGameObject.transform;
+                EnemyBase enemyAI = newEnemy.GetComponent<EnemyBase>();
+                enemyAI.target = playerWorld.CurrentPlayerGameObject.transform;
+            }
         }
     }
 }

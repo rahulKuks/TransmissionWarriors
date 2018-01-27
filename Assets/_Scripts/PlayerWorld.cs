@@ -20,6 +20,8 @@ public class PlayerWorld : MonoBehaviour
     public int CurrentPlayerLayer { get { return LayerMask.NameToLayer( playerLayer.ToString() );} }
     public GameObject CurrentPlayerGameObject { get { return playerGameObject; } }
 
+    private List<EnemyBase> enemiesToTransfer = new List<EnemyBase>();
+
     void Start ()
     {
 		

@@ -10,6 +10,9 @@ public class EnemyBase : MonoBehaviour
     [SerializeField]
     private float attackRadius = 5;
 
+    [SerializeField]
+    private int health = 1000;
+
     public Transform target { set; get; }
 
 	void Start ()
@@ -27,5 +30,21 @@ public class EnemyBase : MonoBehaviour
                 transform.position += (target.position - transform.position).normalized * walkingSpeed * Time.deltaTime;
             }
         }
+    }
+
+    public void GetHit(int damage)
+    {
+        health -= damage;
+
+        if(health <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        //Trigger VFX
+        //Tell EnemySpawner to transfer us?
     }
 }
