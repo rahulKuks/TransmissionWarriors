@@ -15,7 +15,7 @@ public class PlayerControl : MonoBehaviour
     //note that max and min angles are how many degrees up or down, regardless on the direction the character is facing
     public float maxAimAngle = 80f;
     public float minAimAngle = -60f;
-    public float aimingSpeed = 15f;//how fast is the aiming angle rotating
+    public float aimingSpeed = 60f;//how fast is the aiming angle rotating
     public float aimingAngle = 0;//note that this angle is the absolute angle goes all 360 degrees, it matters for witch way the charater is facing. It is public just for debug inspection.
                                  // Use this for initialization
     void Start()
@@ -85,21 +85,25 @@ public class PlayerControl : MonoBehaviour
             }
             else //facing left
             {
-                if (aimingAngle - Time.deltaTime * aimingSpeed * Input.GetAxis("AimAngle") > maxAimAngle)
+                if (aimingAngle + Time.deltaTime * aimingSpeed * Input.GetAxis("AimAngle") > maxAimAngle)
                 {
                     //do nothing when it is reaching the top limit
                 }
-                else if (aimingAngle - Time.deltaTime * aimingSpeed * Input.GetAxis("AimAngle") < minAimAngle)
+                else if (aimingAngle + Time.deltaTime * aimingSpeed * Input.GetAxis("AimAngle") < minAimAngle)
                 {
                     //do nothing when it is reaching the buttom limit
                 }
-                aimingLine.transform.Rotate(Vector3.back, Time.deltaTime * aimingSpeed* Input.GetAxis("AimAngle"));
-                aimingAngle += Time.deltaTime * aimingSpeed * Input.GetAxis("AimAngle");
+                else
+                {
+                    aimingLine.transform.Rotate(Vector3.forward, Time.deltaTime * aimingSpeed * Input.GetAxis("AimAngle"));
+                    aimingAngle += Time.deltaTime * aimingSpeed * Input.GetAxis("AimAngle");
+                }
+                
             }
         }
         //  Debug.Log("OnAirTime" + onAirTime);
 
-       // Debug.Log("AimingAngle" +aimingAngle);
+        Debug.Log("AimingAngle" +aimingAngle);
 
     }
     void Flip()
@@ -115,7 +119,7 @@ public class PlayerControl : MonoBehaviour
             facingRight = true;
         }
         transform.Rotate(Vector3.up, 180);
-        aimingAngle = 180 - aimingAngle;
+      //  aimingAngle = 180 - aimingAngle;
     }
 
     private void OnCollisionEnter(Collision collision)
