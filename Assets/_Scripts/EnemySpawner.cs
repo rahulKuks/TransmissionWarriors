@@ -42,6 +42,9 @@ public class EnemySpawner : MonoBehaviour
             Vector3 spawnPosition = new Vector3(RandomXinPlane, newEnemyBox.size.y/2, RandomZinPlane) + randomSpawnPlane.transform.localPosition;
             newEnemy.transform.localPosition = spawnPosition;
             newEnemy.layer = layerMask;
+
+            EnemyBase enemyAI = newEnemy.GetComponent<EnemyBase>();
+            enemyAI.target = playerWorld.CurrentPlayerGameObject.transform;
         }
     }
 }
