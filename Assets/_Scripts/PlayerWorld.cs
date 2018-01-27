@@ -14,11 +14,7 @@ public class PlayerWorld : MonoBehaviour
     [SerializeField]
     private PlayerLayer playerLayer;
 
-    [SerializeField]
-    private GameObject playerGameObject;
-
     public int CurrentPlayerLayer { get { return LayerMask.NameToLayer( playerLayer.ToString() );} }
-    public GameObject CurrentPlayerGameObject { get { return playerGameObject; } }
 
     private List<EnemyBase> enemiesToTransfer = new List<EnemyBase>();
 
