@@ -4,20 +4,21 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-    public bool facingRight = true;
+    public enum Direction { North, East, South, West,NE,NW,SE,SW };
+    public Direction facing = Direction.South;
     public float speed = 0.5f;
     public float jumpPower = 0.3f;
     public Rigidbody rb;
     private float onAirTime = 0.0f;
     public float jumpCD = 0.5f;//the time the player can hold the jump button and it's still effective, holding it after this time will just fall down
 
-    public AimingLine aimingLine;
+/*    public AimingLine aimingLine;
     //note that max and min angles are how many degrees up or down, regardless on the direction the character is facing
     public float maxAimAngle = 80f;
     public float minAimAngle = -60f;
     public float aimingSpeed = 60f;//how fast is the aiming angle rotating
     public float aimingAngle = 0;//note that this angle is the absolute angle goes all 360 degrees, it matters for witch way the charater is facing. It is public just for debug inspection.
-                                 // Use this for initialization
+ */                                // Use this for initialization
     void Start()
     {
 
@@ -26,29 +27,26 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        // horizontal movement 
-        float x = Input.GetAxis("Horizontal") * speed;
-        //check which way the character is facing
-        if (x > 0)
+        if (!isAiming())//not aiming
         {
-            if(facingRight == false)
+            if(Input.GetAxis("Horizontal")!=0 || Input.GetAxis("Vertical") != 0) //moving in some direction
             {
-                Flip();
+                setDirection();
+                Debug.Log("Direction:" + facing);
+                //  movement 
+                float x = Input.GetAxis("Horizontal");
+                float z = Input.GetAxis("Vertical");
+
+
+
+                rb.velocity += new Vector3(x, 0, z).normalized * speed;
             }
+        }
         
-        }
-        else if(x<0)
-        {
-            if (facingRight == true)
-            {
-                Flip();
-            }
-        }
 
-        rb.velocity += new Vector3(x, 0, 0);
-        // vertical jump
+        // jump
 
-        if (Input.GetAxis("Vertical") > 0) //jump input
+        if (Input.GetKey(KeyCode.C)) //jump input
         {
 
             onAirTime += Time.deltaTime;
@@ -61,65 +59,74 @@ public class PlayerControl : MonoBehaviour
         };
 
         // aiming
-        if (Input.GetAxis("AimAngle") != 0)
-        {
-
-            if (facingRight)
-            {
-                if(aimingAngle +Time.deltaTime* aimingSpeed*Input.GetAxis("AimAngle") > maxAimAngle)
-                {
-                    Debug.Log("A");
-                    //do nothing when it is reaching the top limit
-                }
-                else if (aimingAngle + Time.deltaTime * aimingSpeed * Input.GetAxis("AimAngle") < minAimAngle)
-                {
-                    //do nothing when it is reaching the buttom limit
-                    Debug.Log("B");
-                }
-                else
-                {
-                    aimingLine.transform.Rotate(Vector3.forward, Time.deltaTime * aimingSpeed * Input.GetAxis("AimAngle"));
-                    aimingAngle += Time.deltaTime * aimingSpeed * Input.GetAxis("AimAngle");
-                }
-                
-            }
-            else //facing left
-            {
-                if (aimingAngle + Time.deltaTime * aimingSpeed * Input.GetAxis("AimAngle") > maxAimAngle)
-                {
-                    //do nothing when it is reaching the top limit
-                }
-                else if (aimingAngle + Time.deltaTime * aimingSpeed * Input.GetAxis("AimAngle") < minAimAngle)
-                {
-                    //do nothing when it is reaching the buttom limit
-                }
-                else
-                {
-                    aimingLine.transform.Rotate(Vector3.forward, Time.deltaTime * aimingSpeed * Input.GetAxis("AimAngle"));
-                    aimingAngle += Time.deltaTime * aimingSpeed * Input.GetAxis("AimAngle");
-                }
-                
-            }
-        }
+       
         //  Debug.Log("OnAirTime" + onAirTime);
 
-        Debug.Log("AimingAngle" +aimingAngle);
 
     }
-    void Flip()
-    {
-        
-        if (facingRight)
-        {
-            facingRight = false;
 
-        }
-        else
+    bool isAiming()
+    {
+        return Input.GetKey(KeyCode.LeftShift);
+    }
+    void setDirection()
+    {
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+        if (Input.GetAxis("Horizontal") != 0) //has x componet in world coodinate
         {
-            facingRight = true;
+            if (x > 0)//somewhere east
+            {
+                if(z < 0) // somewhere south
+                {
+                    facing = Direction.SE;
+                    transform.rotation= Quaternion.LookRotation(new Vector3(1, 0, -1));
+
+                }
+                else if (z > 0) // somewhere north
+                {
+                    facing = Direction.NE;
+                    transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, 1));
+                }
+                else
+                {
+                    facing = Direction.East;
+                    transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, 0));
+                }
+            }
+            else if (x < 0) // somewhere west
+            {
+                if (z < 0) // somwhere south
+                {
+                    facing = Direction.SW;
+                    transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, -1));
+                }
+                else if (z > 0)//somewhere north
+                {
+                    facing = Direction.NW;
+                    transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, 1));
+                }
+                else
+                {
+                    facing = Direction.West;
+                    transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, 0));
+                }
+            }
+            
         }
-        transform.Rotate(Vector3.up, 180);
-      //  aimingAngle = 180 - aimingAngle;
+        else // there is no x component in world coordinate
+        {
+            if (z > 0) //south
+            {
+                facing = Direction.South;
+                transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, 1));
+            }
+            else if (z < 0)
+            {
+                facing = Direction.North;
+                transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, -1));
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
