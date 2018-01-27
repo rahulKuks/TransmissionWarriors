@@ -11,14 +11,11 @@ public class PlayerControl : MonoBehaviour
     public Rigidbody rb;
     private float onAirTime = 0.0f;
     public float jumpCD = 0.5f;//the time the player can hold the jump button and it's still effective, holding it after this time will just fall down
+    public float fireCD = 0.15f;
+    private float currentFireCD = 0f;
+    public Gun gun;
 
-/*    public AimingLine aimingLine;
-    //note that max and min angles are how many degrees up or down, regardless on the direction the character is facing
-    public float maxAimAngle = 80f;
-    public float minAimAngle = -60f;
-    public float aimingSpeed = 60f;//how fast is the aiming angle rotating
-    public float aimingAngle = 0;//note that this angle is the absolute angle goes all 360 degrees, it matters for witch way the charater is facing. It is public just for debug inspection.
- */                                // Use this for initialization
+                              // Use this for initialization
     void Start()
     {
 
@@ -27,12 +24,14 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!isAiming())//not aiming
+        
+        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) //pressing direction key(s)
         {
-            if(Input.GetAxis("Horizontal")!=0 || Input.GetAxis("Vertical") != 0) //moving in some direction
+            setDirection();
+            Debug.Log("Direction:" + facing);
+            if (!isAiming())//not aiming means: moving
             {
-                setDirection();
-                Debug.Log("Direction:" + facing);
+
                 //  movement 
                 float x = Input.GetAxis("Horizontal");
                 float z = Input.GetAxis("Vertical");
@@ -40,6 +39,7 @@ public class PlayerControl : MonoBehaviour
 
 
                 rb.velocity += new Vector3(x, 0, z).normalized * speed;
+
             }
         }
         
@@ -58,17 +58,29 @@ public class PlayerControl : MonoBehaviour
 
         };
 
-        // aiming
+        // aim, then fire
+        currentFireCD -= Time.deltaTime;
+        if (isAiming())
+        {
+            if (Input.GetKey(KeyCode.F) && currentFireCD<=0)
+            {
+                gun.Fire();
+                currentFireCD = fireCD;
+            }
+        }
+
        
         //  Debug.Log("OnAirTime" + onAirTime);
 
 
     }
-
+    //helper functions
     bool isAiming()
     {
         return Input.GetKey(KeyCode.LeftShift);
     }
+
+
     void setDirection()
     {
         float x = Input.GetAxis("Horizontal");
@@ -129,6 +141,7 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.tag.Equals("Floor"))//check collision with floor...
