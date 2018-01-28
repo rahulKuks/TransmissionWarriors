@@ -97,14 +97,19 @@ public class PlayerControl : MonoBehaviour
                 {
                     rb.velocity += Vector3.up * jumpPower;
                 }*/
-                RaycastHit hit;
-                
-                if ((currentMeleeCd < 0) && Physics.SphereCast(transform.position, meleeWidth, transform.forward, out hit, meleeRange) && (hit.transform.tag == "Enemy"))
+                RaycastHit[] hits = Physics.SphereCastAll(transform.position, meleeWidth, transform.forward, meleeRange);
+
+                if ((currentMeleeCd < 0))
                 {
-                    Melee(hit.transform.gameObject.GetComponent<EnemyBase>());
+                    foreach (RaycastHit hit in hits)
+                        if ((hit.transform.tag == "Enemy"))
+                        {
+                            Melee(hit.transform.gameObject.GetComponent<EnemyBase>());
+                        }
 
                 }
                 currentMeleeCd = meleeCD;
+
 
             };
 
@@ -150,21 +155,26 @@ public class PlayerControl : MonoBehaviour
             if (Input.GetKey(KeyCode.J)) //melee input
             {
 
-               /* onAirTime += Time.deltaTime;
-                //check is jump input in valid (can keep jumping (as strength of jump) for a short while, after that character falls down, this time counter reset when the player hits the ground)
-                if (onAirTime < jumpCD)
-                {
-                    rb.velocity += Vector3.up * jumpPower;
-                }*/
+                /* onAirTime += Time.deltaTime;
+                 //check is jump input in valid (can keep jumping (as strength of jump) for a short while, after that character falls down, this time counter reset when the player hits the ground)
+                 if (onAirTime < jumpCD)
+                 {
+                     rb.velocity += Vector3.up * jumpPower;
+                 }*/
 
-                RaycastHit hit;
-                
-                if ((currentMeleeCd < 0) && Physics.SphereCast(transform.position, meleeWidth, transform.forward, out hit, meleeRange) && (hit.transform.tag == "Enemy"))
+                RaycastHit[] hits = Physics.SphereCastAll(transform.position, meleeWidth, transform.forward, meleeRange);
+
+                if ((currentMeleeCd < 0))
                 {
-                    Melee(hit.transform.gameObject.GetComponent<EnemyBase>());
+                    foreach (RaycastHit hit in hits)
+                        if ((hit.transform.tag == "Enemy"))
+                        {
+                            Melee(hit.transform.gameObject.GetComponent<EnemyBase>());
+                        }
 
                 }
                 currentMeleeCd = meleeCD;
+
             };
 
             // aim, then fire
