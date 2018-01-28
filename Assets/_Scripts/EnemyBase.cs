@@ -20,8 +20,12 @@ public class EnemyBase : MonoBehaviour
     [SerializeField]
     private int maxHealth = 1000;
 
+    [SerializeField]
+    private int damage = 100;
+
     public Transform target { set; get; }
     public EnemyState CurrentState { private set { currentState = value; } get { return currentState;  } }
+    public int Damage { private set { damage = value; } get { return damage; } }
 
     private EnemyState currentState;
     private int currentHealth;

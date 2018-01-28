@@ -1310,6 +1310,21 @@ Prefab:
       propertyPath: currentPlayerWorld
       value: 
       objectReference: {fileID: 1811303916}
+    - target: {fileID: 114227482064669124, guid: 193fd07ef96c85b43886159e2d9e4f30,
+        type: 2}
+      propertyPath: maxHP
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 114227482064669124, guid: 193fd07ef96c85b43886159e2d9e4f30,
+        type: 2}
+      propertyPath: bonceDistance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114227482064669124, guid: 193fd07ef96c85b43886159e2d9e4f30,
+        type: 2}
+      propertyPath: bounceDistance
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 193fd07ef96c85b43886159e2d9e4f30, type: 2}
   m_IsPrefabParent: 0
@@ -1609,6 +1624,21 @@ Prefab:
       propertyPath: currentPlayerWorld
       value: 
       objectReference: {fileID: 565800233}
+    - target: {fileID: 114227482064669124, guid: 193fd07ef96c85b43886159e2d9e4f30,
+        type: 2}
+      propertyPath: bonceDistance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114227482064669124, guid: 193fd07ef96c85b43886159e2d9e4f30,
+        type: 2}
+      propertyPath: maxHP
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 114227482064669124, guid: 193fd07ef96c85b43886159e2d9e4f30,
+        type: 2}
+      propertyPath: bounceDistance
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 193fd07ef96c85b43886159e2d9e4f30, type: 2}
   m_IsPrefabParent: 0

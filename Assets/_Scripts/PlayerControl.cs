@@ -20,7 +20,7 @@ public class PlayerControl : MonoBehaviour
     public int currentHP;
     public float immuneTime = 2f;
     private float remainingImmuneTime = 0f;
-    public float bonceDistance = 0.3f;
+    public float bounceDistance = 0.3f;
 
     [SerializeField]
     private PlayerWorld currentPlayerWorld;
@@ -154,6 +154,7 @@ public class PlayerControl : MonoBehaviour
 
     void Die()
     {
+        Destroy(gameObject);
         //TODO
     }
 
@@ -237,24 +238,27 @@ public class PlayerControl : MonoBehaviour
                 }
             }
         }
-        else if (collision.collider.tag.Equals("Enemy"))
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
         {
-            
-            EnemyBase enemy = collision.collider.gameObject.GetComponent<EnemyBase>();
+            EnemyBase enemy = other.gameObject.GetComponent<EnemyBase>();
             if (remainingImmuneTime <= 0)
             {
-                Vector3 bonceDirection = (transform.position - enemy.transform.position).normalized;
-                transform.Translate(bonceDirection * bonceDistance);
-                //TODO
-                //TakeDamage(enemy.Attack);
+                Vector3 bounceDirection = (transform.position - enemy.transform.position).normalized;
+                bounceDirection *= bounceDistance;
+                transform.Translate( new Vector3(bounceDirection.x, 0, bounceDirection.z) );
+
+                TakeDamage(enemy.Damage);
                 if (currentHP <= 0)
                 {
                     Die();
                 }
             }
-           
         }
-
     }
 
 }
