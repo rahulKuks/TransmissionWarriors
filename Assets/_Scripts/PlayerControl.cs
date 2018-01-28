@@ -27,6 +27,11 @@ public class PlayerControl : MonoBehaviour
     public float immuneTime = 2f;
     private float remainingImmuneTime = 0f;
     public float bounceDistance = 0.3f;
+    public float meleeCD = 3f;
+    private float currentMeleeCd = 0f;
+    public int meleeDamage = 100;
+
+
 
     public PlayerState CurrentState { private set; get; }
 
@@ -43,6 +48,7 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        currentMeleeCd -= Time.deltaTime;
         if (tag == PlayerTag.Player1)
         {
             if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) //pressing direction key(s)
@@ -161,6 +167,10 @@ public class PlayerControl : MonoBehaviour
         
     }
 
+    void Melee()
+    {
+        //TODO
+    }
     void Die()
     {
         CurrentState = PlayerState.Dead;
@@ -270,4 +280,29 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay(Collider other)//trigger collider for melee attack
+    {
+        if (currentMeleeCd > 0)
+        {
+            return;
+        }
+        if(Vector3.Dot((other.transform.position-transform.position)/*vector from player to enemy*/, transform.forward) > 0)
+        {
+            if (tag == PlayerTag.Player1)
+            {
+                if (Input.GetKeyDown(KeyCode.V))
+                {
+                    Melee();
+                }
+            }
+            else if (tag == PlayerTag.Player2)
+            {
+                if (Input.GetKeyDown(KeyCode.I))
+                {
+                    Melee();
+                }
+            }
+        }
+        
+    }
 }
