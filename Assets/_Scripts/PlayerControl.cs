@@ -65,13 +65,6 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (cam != null)
-        {
-            hpBar.transform.LookAt(hpBar.transform.position + cam.transform.rotation * Vector3.forward, cam.transform.rotation * Vector3.up);
-            // hpBar.transform.LookAt(hpBar.transform.position - cam.transform.position);
-
-        }
-
         currentMeleeCd -= Time.deltaTime;
         if (PlayerID == PlayerTag.Player1)
         {
@@ -201,10 +194,16 @@ public class PlayerControl : MonoBehaviour
             //  Debug.Log("OnAirTime" + onAirTime);
             remainingImmuneTime -= Time.deltaTime;
         }
+
+        if (cam != null)
+        {
+            hpBar.transform.LookAt(hpBar.transform.position + cam.transform.rotation * Vector3.forward, cam.transform.rotation * Vector3.up);
+        }
     }
 
     void TakeDamage(int monsterAttack)
     {
+        hpBar.setHP((float)currentHP / (float)maxHP);
         if (currentHP > monsterAttack)
         {
             currentHP -= monsterAttack;
@@ -214,7 +213,6 @@ public class PlayerControl : MonoBehaviour
         {
             currentHP = 0;
         }
-        hpBar.setHP((float)currentHP / (float)maxHP);
     }
     //helper functions
     public bool isAiming()
