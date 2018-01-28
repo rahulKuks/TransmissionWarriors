@@ -25,6 +25,8 @@ public class EnemySpawner : MonoBehaviour
     private float spawnTimer;
     private bool isInitialized = false;
 
+    private float transmissionTimeDelay;
+
 	private void Update()
     {
         if(!isInitialized)
@@ -67,8 +69,9 @@ public class EnemySpawner : MonoBehaviour
         isInitialized = true;
     }
 
-    public void SpawnTransferredEnemy(GameObject newEnemy)
+    public void SpawnTransferredEnemy(GameObject newEnemy, float transmissionTime)
     {
+        transmissionTimeDelay = transmissionTime;
         Enemies.Add(newEnemy);
         SetupNewEnemy(newEnemy, true);
     }
@@ -105,7 +108,8 @@ public class EnemySpawner : MonoBehaviour
                 newEnemy.transform.localPosition = spawnPosition;
 
                 EnemyBase enemyAI = newEnemy.GetComponent<EnemyBase>();
-                StartCoroutine(DelayedInitialization(enemyAI, delayed ? 1f : 0f));
+                enemyAI.SetState(EnemyBase.EnemyState.InTransmission);
+                StartCoroutine(DelayedInitialization(enemyAI, delayed ? transmissionTimeDelay : 0f));
             }
         }
     }

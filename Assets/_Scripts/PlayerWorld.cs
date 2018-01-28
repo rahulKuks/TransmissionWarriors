@@ -36,9 +36,9 @@ public class PlayerWorld : MonoBehaviour
     {
     }
 
-    public void RecieveEnemy(GameObject transferredEnemy)
+    public void RecieveEnemy(GameObject transferredEnemy, float transmissionTime)
     {
-        enemySpawner.SpawnTransferredEnemy(transferredEnemy);
+        enemySpawner.SpawnTransferredEnemy(transferredEnemy, transmissionTime);
     }
 
 }

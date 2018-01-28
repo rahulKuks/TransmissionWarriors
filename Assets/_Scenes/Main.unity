@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4482152, g: 0.49824154, b: 0.5755751, a: 1}
+  m_IndirectSpecularColor: {r: 0.4482143, g: 0.49824065, b: 0.5755748, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -533,6 +533,7 @@ GameObject:
   - component: {fileID: 227270816}
   - component: {fileID: 227270815}
   - component: {fileID: 227270813}
+  - component: {fileID: 227270814}
   m_Layer: 8
   m_Name: PlayerCamera
   m_TagString: MainCamera
@@ -552,6 +553,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: e7cecb28f3a41614abfca11fbcc263b3, type: 2}
+--- !u!81 &227270814
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 227270812}
+  m_Enabled: 1
 --- !u!20 &227270815
 Camera:
   m_ObjectHideFlags: 0
@@ -633,6 +641,7 @@ MonoBehaviour:
   - {fileID: 1811303916}
   transmissionVFX: {fileID: 1477268886897492, guid: 9cd8b59e169b447a5bf38fafc0604397,
     type: 2}
+  transmissionTime: 1
 --- !u!4 &239968529
 Transform:
   m_ObjectHideFlags: 0
@@ -819,7 +828,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 565800230}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -12.391148, y: -11.429865, z: 7.3712387}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -832,7 +841,7 @@ Transform:
   - {fileID: 2045389930}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &565800232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2741,7 +2750,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1811303913}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 142.3, y: -11.429865, z: 7.3712387}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2754,7 +2763,7 @@ Transform:
   - {fileID: 1374167684}
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &1811303915
 MonoBehaviour:
   m_ObjectHideFlags: 0
