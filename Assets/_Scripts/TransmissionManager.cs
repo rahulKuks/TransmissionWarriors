@@ -10,11 +10,15 @@ public class TransmissionManager : MonoBehaviour
     [SerializeField]
     private GameObject transmissionVFX;
 
+    [SerializeField]
+    private float transmissionTime = 1f;
+
     private class TransmissionVFXData
     {
         public GameObject vfxGameObject;
         public Vector3 startPosition;
         public Vector3 endPosition;
+        public float lerpTimer;
     }
 
     private List<TransmissionVFXData> movingTransmissionVFXs = new List<TransmissionVFXData>();
@@ -24,15 +28,16 @@ public class TransmissionManager : MonoBehaviour
 	
 	void Update ()
     {
-        /*if(movingTransmissionVFXs != null && movingTransmissionVFXs.Count > 0)
+        if(movingTransmissionVFXs != null && movingTransmissionVFXs.Count > 0)
         {
             finishedTransmissions.Clear();
             for (int i = 0; i < movingTransmissionVFXs.Count; i++)
             {
-                Vector3 newPosition = Vector3.Lerp(movingTransmissionVFXs[i].startPosition, movingTransmissionVFXs[i].endPosition, Time.deltaTime);
+                movingTransmissionVFXs[i].lerpTimer += Time.deltaTime;
+                Vector3 newPosition = Vector3.Lerp(movingTransmissionVFXs[i].startPosition, movingTransmissionVFXs[i].endPosition, movingTransmissionVFXs[i].lerpTimer / transmissionTime);
                 movingTransmissionVFXs[i].vfxGameObject.transform.position = newPosition;
 
-                if( (movingTransmissionVFXs[i].vfxGameObject.transform.position - movingTransmissionVFXs[i].endPosition).magnitude < LERP_THRESHOLD)
+                if(movingTransmissionVFXs[i].lerpTimer > transmissionTime)
                 {
                     finishedTransmissions.Add(i);
                 }
@@ -43,7 +48,7 @@ public class TransmissionManager : MonoBehaviour
                 Destroy(movingTransmissionVFXs[toRemoveIndex].vfxGameObject);
                 movingTransmissionVFXs.RemoveAt(toRemoveIndex);
             }
-        }*/
+        }
 
         for (int i = 0; i < playerWorlds.Length; i++)
         {
@@ -51,17 +56,18 @@ public class TransmissionManager : MonoBehaviour
             {
                 foreach(EnemyBase enemy in playerWorlds[i].enemiesToTransfer)
                 {
-                    /*GameObject transmission = Instantiate(transmissionVFX, enemy.transform.position, Quaternion.identity);
+                    GameObject transmission = Instantiate(transmissionVFX, enemy.transform.position, Quaternion.identity);
                     TransmissionVFXData transmissionData = new TransmissionVFXData();
                     transmissionData.vfxGameObject = transmission;
-                    transmissionData.startPosition = enemy.transform.position;*/
+                    transmissionData.startPosition = enemy.transform.position;
 
                     int nextPlayerWorld = (i + 1) % playerWorlds.Length;
-                    playerWorlds[nextPlayerWorld].RecieveEnemy(enemy.gameObject);
+                    playerWorlds[nextPlayerWorld].RecieveEnemy(enemy.gameObject, transmissionTime);
 
-                    //transmissionData.endPosition = enemy.transform.position;
+                    transmissionData.endPosition = enemy.transform.position;
+                    transmissionData.lerpTimer = 0;
 
-                    //movingTransmissionVFXs.Add(transmissionData);
+                    movingTransmissionVFXs.Add(transmissionData);
                 }
             }
 

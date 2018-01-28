@@ -33,11 +33,11 @@ Material:
     m_Floats:
     - _EmissionLM: 0
     - _RimMax: 1
-    - _RimMin: 0
+    - _RimMin: 1
     - _Shininess: 0.078125
     m_Colors:
-    - _Color: {r: 0.38235295, g: 0.37428707, b: 0.089965396, a: 1}
-    - _HColor: {r: 1, g: 1, b: 1, a: 1}
-    - _RimColor: {r: 1, g: 0.94868153, b: 0.66176474, a: 0.7058824}
-    - _SColor: {r: 0.3, g: 0.3, b: 0.3, a: 1}
+    - _Color: {r: 0.9117647, g: 0.8886469, b: 0.07374569, a: 1}
+    - _HColor: {r: 1, g: 0.9852941, b: 0.9852941, a: 1}
+    - _RimColor: {r: 1, g: 1, b: 1, a: 0.7058824}
+    - _SColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.5441177, g: 1, b: 0.5661258, a: 1}
