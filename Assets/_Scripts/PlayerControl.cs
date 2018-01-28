@@ -14,11 +14,16 @@ public class PlayerControl : MonoBehaviour
     public float fireCD = 0.15f;
     private float currentFireCD = 0f;
     public Gun gun;
+    public int maxHP = 50;
+    public int currentHP;
+    public float immuneTime = 2f;
+    private float remainingImmuneTime = 0f;
+    public float bonceDistance = 0.3f;
 
                               // Use this for initialization
     void Start()
     {
-
+        currentHP = maxHP;
     }
 
     // Update is called once per frame
@@ -69,10 +74,23 @@ public class PlayerControl : MonoBehaviour
             }
         }
 
-       
+
         //  Debug.Log("OnAirTime" + onAirTime);
+        remainingImmuneTime -= Time.deltaTime;
 
+    }
 
+    void TakeDamage(int monsterAttack)
+    {
+        if (currentHP > monsterAttack)
+        {
+            currentHP -= monsterAttack;
+            remainingImmuneTime = immuneTime;
+        }
+        else
+        {
+            currentHP = 0;
+        }
     }
     //helper functions
     bool isAiming()
@@ -80,6 +98,10 @@ public class PlayerControl : MonoBehaviour
         return Input.GetKey(KeyCode.LeftShift);
     }
 
+    void Die()
+    {
+        //TODO
+    }
 
     void setDirection()
     {
@@ -154,6 +176,23 @@ public class PlayerControl : MonoBehaviour
                     onAirTime = 0f;//reset on air time
                 }
             }
+        }
+        else if (collision.collider.tag.Equals("Enemy"))
+        {
+            
+            EnemyBase enemy = collision.collider.gameObject.GetComponent<EnemyBase>();
+            if (remainingImmuneTime <= 0)
+            {
+                Vector3 bonceDirection = (transform.position - enemy.transform.position).normalized;
+                transform.Translate(bonceDirection * bonceDistance);
+                //TODO
+                //TakeDamage(enemy.Attack);
+                if (currentHP <= 0)
+                {
+                    Die();
+                }
+            }
+           
         }
 
     }
