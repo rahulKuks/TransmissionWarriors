@@ -20,7 +20,8 @@ public class PlayerControl : MonoBehaviour
     private float onAirTime = 0.0f;
     public float jumpCD = 0.5f;//the time the player can hold the jump button and it's still effective, holding it after this time will just fall down
     public float fireCD = 0.15f;
-    private float currentFireCD = 0f;
+	[HideInInspector]
+    public float currentFireCD = 0f;
     public Gun gun;
     public int maxHP = 50;
     public int currentHP;
@@ -31,6 +32,10 @@ public class PlayerControl : MonoBehaviour
     private float currentMeleeCd = 0f;
     public int meleeDamage = 100;
     public float meleeBounceStrength = 3.0f; //how much the melee attack will bounce the enemy away
+
+    //audio
+    public AudioSource MeleeSFX;
+    public AudioSource RangeSFX;
 
     public HpBar hpBar;
 
@@ -84,7 +89,7 @@ public class PlayerControl : MonoBehaviour
 
             // jump
 
-            if (Input.GetKey(KeyCode.C)) //Melee input
+            if (Input.GetKey(KeyCode.V)) //Melee input
             {
 
                 /*onAirTime += Time.deltaTime;
@@ -93,14 +98,19 @@ public class PlayerControl : MonoBehaviour
                 {
                     rb.velocity += Vector3.up * jumpPower;
                 }*/
-                RaycastHit hit;
-                
-                if ((currentMeleeCd < 0) && Physics.SphereCast(transform.position, meleeWidth, transform.forward, out hit, meleeRange) && (hit.transform.tag == "Enemy"))
+                RaycastHit[] hits = Physics.SphereCastAll(transform.position, meleeWidth, transform.forward, meleeRange);
+
+                if ((currentMeleeCd < 0))
                 {
-                    Melee(hit.transform.gameObject.GetComponent<EnemyBase>());
+                    foreach (RaycastHit hit in hits)
+                        if ((hit.transform.tag == "Enemy"))
+                        {
+                            Melee(hit.transform.gameObject.GetComponent<EnemyBase>());
+                        }
 
                 }
                 currentMeleeCd = meleeCD;
+
 
             };
 
@@ -111,6 +121,7 @@ public class PlayerControl : MonoBehaviour
                 if ( (Input.GetKey(KeyCode.F) || Input.GetButtonDown("Fire1") ) && currentFireCD <= 0)
                 {
                     gun.Fire(currentPlayerWorld.CurrentPlayerLayer);
+                RangeSFX.Play();
                     currentFireCD = fireCD;
                 }
            // }
@@ -145,21 +156,26 @@ public class PlayerControl : MonoBehaviour
             if (Input.GetKey(KeyCode.J)) //melee input
             {
 
-               /* onAirTime += Time.deltaTime;
-                //check is jump input in valid (can keep jumping (as strength of jump) for a short while, after that character falls down, this time counter reset when the player hits the ground)
-                if (onAirTime < jumpCD)
-                {
-                    rb.velocity += Vector3.up * jumpPower;
-                }*/
+                /* onAirTime += Time.deltaTime;
+                 //check is jump input in valid (can keep jumping (as strength of jump) for a short while, after that character falls down, this time counter reset when the player hits the ground)
+                 if (onAirTime < jumpCD)
+                 {
+                     rb.velocity += Vector3.up * jumpPower;
+                 }*/
 
-                RaycastHit hit;
-                
-                if ((currentMeleeCd < 0) && Physics.SphereCast(transform.position, meleeWidth, transform.forward, out hit, meleeRange) && (hit.transform.tag == "Enemy"))
+                RaycastHit[] hits = Physics.SphereCastAll(transform.position, meleeWidth, transform.forward, meleeRange);
+
+                if ((currentMeleeCd < 0))
                 {
-                    Melee(hit.transform.gameObject.GetComponent<EnemyBase>());
+                    foreach (RaycastHit hit in hits)
+                        if ((hit.transform.tag == "Enemy"))
+                        {
+                            Melee(hit.transform.gameObject.GetComponent<EnemyBase>());
+                        }
 
                 }
                 currentMeleeCd = meleeCD;
+
             };
 
             // aim, then fire
@@ -169,7 +185,8 @@ public class PlayerControl : MonoBehaviour
                 if ((Input.GetKey(KeyCode.L) || Input.GetButtonDown("Fire2")) && currentFireCD <= 0)
                 {
                     gun.Fire(currentPlayerWorld.CurrentPlayerLayer);
-                    currentFireCD = fireCD;
+                RangeSFX.Play();
+                currentFireCD = fireCD;
                 }
           //  }
 
@@ -204,7 +221,7 @@ public class PlayerControl : MonoBehaviour
         hpBar.setHP((float)currentHP / (float)maxHP);
     }
     //helper functions
-    bool isAiming()
+    public bool isAiming()
     {
         if (PlayerID == PlayerTag.Player1)
         {
@@ -220,7 +237,7 @@ public class PlayerControl : MonoBehaviour
     void Melee(EnemyBase enemy)
     {
         enemy.GetHit(meleeDamage, this.gameObject.transform, meleeBounceStrength);
-        Debug.Log("Hit!!");
+        MeleeSFX.Play();
     }
     void Die()
     {
