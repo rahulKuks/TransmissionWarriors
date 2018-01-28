@@ -66,6 +66,7 @@ public class EnemyBase : MonoBehaviour
     {
         currentHealth = maxHealth;
         currentState = EnemyState.Idle;
+        gameObject.SetActive(true);
     }
 
     public void GetHit(int damage, Transform attacker, float bounceMultiplier = 1f)
@@ -85,6 +86,7 @@ public class EnemyBase : MonoBehaviour
     public void Die()
     {
         currentState = EnemyState.Dead;
+        gameObject.SetActive(false);
         //Trigger VFX
     }
 }

@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4099055518545628}
   - component: {fileID: 198059686167401832}
   - component: {fileID: 199947682410403786}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4955117358695572}
   - component: {fileID: 198983284355782774}
   - component: {fileID: 199140206540835416}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TransmissionParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4282762301343670}
   - component: {fileID: 198069364727674062}
   - component: {fileID: 199977938193351432}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Electricity
   m_TagString: Untagged
   m_Icon: {fileID: 0}

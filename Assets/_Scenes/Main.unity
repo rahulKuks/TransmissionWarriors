@@ -576,7 +576,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 1280
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -631,6 +631,8 @@ MonoBehaviour:
   playerWorlds:
   - {fileID: 565800233}
   - {fileID: 1811303916}
+  transmissionVFX: {fileID: 1477268886897492, guid: 9cd8b59e169b447a5bf38fafc0604397,
+    type: 2}
 --- !u!4 &239968529
 Transform:
   m_ObjectHideFlags: 0
@@ -1937,7 +1939,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 1536
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

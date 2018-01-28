@@ -70,7 +70,7 @@ public class EnemySpawner : MonoBehaviour
     public void SpawnTransferredEnemy(GameObject newEnemy)
     {
         Enemies.Add(newEnemy);
-        SetupNewEnemy(newEnemy);
+        SetupNewEnemy(newEnemy, true);
     }
 
     private GameObject SpawnEnemy()
@@ -83,7 +83,7 @@ public class EnemySpawner : MonoBehaviour
         return newEnemy;
     }
 
-    private void SetupNewEnemy(GameObject newEnemy)
+    private void SetupNewEnemy(GameObject newEnemy, bool delayed = false)
     {
         if(newEnemy != null)
         {
@@ -105,10 +105,17 @@ public class EnemySpawner : MonoBehaviour
                 newEnemy.transform.localPosition = spawnPosition;
 
                 EnemyBase enemyAI = newEnemy.GetComponent<EnemyBase>();
-                enemyAI.target = playerWorld.CurrentPlayer.gameObject.transform;
-                enemyAI.Initialize();
+                StartCoroutine(DelayedInitialization(enemyAI, delayed ? 1f : 0f));
             }
         }
+    }
+
+    private IEnumerator DelayedInitialization(EnemyBase enemyAI,float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        enemyAI.target = playerWorld.CurrentPlayer.gameObject.transform;
+        enemyAI.Initialize();
     }
 
 
