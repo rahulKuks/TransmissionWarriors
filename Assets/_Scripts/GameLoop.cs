@@ -21,6 +21,8 @@ public class GameLoop : MonoBehaviour
     [SerializeField]
     private UIManager uiManager;
 
+    private string winnerPlayer;
+
 	void Start ()
     {
         CurrentState = GameState.Initialize;
@@ -44,13 +46,16 @@ public class GameLoop : MonoBehaviour
                 {
                     if(playerWorld.CurrentPlayer.CurrentState == PlayerControl.PlayerState.Dead)
                     {
-                        CurrentState = GameState.GameOver;
+                        CurrentState = GameState.TriggerGameOver;
+                        winnerPlayer = ( ((float)(playerWorld.CurrentPlayer.PlayerID + 1) % 2) + 1 ).ToString();
+                        break;
                     }
                 }
                 break;
 
             case GameState.TriggerGameOver:
-                uiManager.SetGameOverMessage("");
+                CurrentState = GameState.GameOver;
+                uiManager.SetupGameOverMessage("PLAYER " + winnerPlayer + " WINS!");
                 break;
             case GameState.GameOver:
                 //Poll input to reset game
