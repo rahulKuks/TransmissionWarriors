@@ -162,7 +162,9 @@ public class PlayerControl : MonoBehaviour
     {
         if(cam != null)
         {
-            hpBar.transform.LookAt(hpBar.transform.position - cam.transform.position);
+            hpBar.transform.LookAt(hpBar.transform.position + cam.transform.rotation * Vector3.forward,cam.transform.rotation * Vector3.up);
+           // hpBar.transform.LookAt(hpBar.transform.position - cam.transform.position);
+
         }
 
     }
