@@ -23,9 +23,15 @@ public class EnemySpawner : MonoBehaviour
     private List<GameObject> EnemiesToRemove = new List<GameObject>();
 
     private float spawnTimer;
+    private bool isInitialized = false;
 
 	private void Update()
     {
+        if(!isInitialized)
+        {
+            return;
+        }
+
         spawnTimer += Time.deltaTime;
 
         if(spawnTimer >= spawnInterval)
@@ -58,6 +64,7 @@ public class EnemySpawner : MonoBehaviour
     {
         Enemies = new List<GameObject>();
         Enemies.Add(SpawnEnemy());
+        isInitialized = true;
     }
 
     public void SpawnTransferredEnemy(GameObject newEnemy)
