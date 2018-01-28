@@ -41,7 +41,7 @@ public class PlayerAnimatorController : MonoBehaviour
 		{
 			anim.SetBool ("isAiming", false);
 		}
-		if (false) 
+		if (player.currentMeleeCd >= player.meleeCD) 
 		{
 			anim.SetTrigger ("SwordSwing");			
 		}
