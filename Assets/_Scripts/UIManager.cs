@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [SerializeField]
+    private GameObject gameOverScreen;
+
+    [SerializeField]
     private Text gameOverMessage;
 
 	void Start ()
@@ -18,8 +21,9 @@ public class UIManager : MonoBehaviour
 		
 	}
 
-    public void SetGameOverMessage(string message)
+    public void SetupGameOverMessage(string message)
     {
-        gameOverMessage.text += message;
+        gameOverScreen.SetActive(true);
+        gameOverMessage.text = message;
     }
 }
