@@ -34,6 +34,11 @@ public class PlayerControl : MonoBehaviour
 
     public HpBar hpBar;
 
+    [SerializeField]
+    float meleeRange = 2f;
+
+    [SerializeField]
+    float meleeWidth = 1.5f;
 
 
     [SerializeField]
@@ -79,15 +84,23 @@ public class PlayerControl : MonoBehaviour
 
             // jump
 
-            if (Input.GetKey(KeyCode.C)) //jump input
+            if (Input.GetKey(KeyCode.C)) //Melee input
             {
 
-                onAirTime += Time.deltaTime;
+                /*onAirTime += Time.deltaTime;
                 //check is jump input in valid (can keep jumping (as strength of jump) for a short while, after that character falls down, this time counter reset when the player hits the ground)
                 if (onAirTime < jumpCD)
                 {
                     rb.velocity += Vector3.up * jumpPower;
+                }*/
+                RaycastHit hit;
+                
+                if ((currentMeleeCd < 0) && Physics.SphereCast(transform.position, meleeWidth, transform.forward, out hit, meleeRange) && (hit.transform.tag == "Enemy"))
+                {
+                    Melee(hit.transform.gameObject.GetComponent<EnemyBase>());
+
                 }
+                currentMeleeCd = meleeCD;
 
             };
 
@@ -129,16 +142,24 @@ public class PlayerControl : MonoBehaviour
 
             // jump
 
-            if (Input.GetKey(KeyCode.J)) //jump input
+            if (Input.GetKey(KeyCode.J)) //melee input
             {
 
-                onAirTime += Time.deltaTime;
+               /* onAirTime += Time.deltaTime;
                 //check is jump input in valid (can keep jumping (as strength of jump) for a short while, after that character falls down, this time counter reset when the player hits the ground)
                 if (onAirTime < jumpCD)
                 {
                     rb.velocity += Vector3.up * jumpPower;
-                }
+                }*/
 
+                RaycastHit hit;
+                
+                if ((currentMeleeCd < 0) && Physics.SphereCast(transform.position, meleeWidth, transform.forward, out hit, meleeRange) && (hit.transform.tag == "Enemy"))
+                {
+                    Melee(hit.transform.gameObject.GetComponent<EnemyBase>());
+
+                }
+                currentMeleeCd = meleeCD;
             };
 
             // aim, then fire
