@@ -15,13 +15,14 @@ public class PlayerWorld : MonoBehaviour
     private PlayerLayer playerLayer;
 
     [SerializeField]
-    private GameObject playerGameObject;
+    private PlayerControl player;
 
     [SerializeField]
     private EnemySpawner enemySpawner;
 
     public int CurrentPlayerLayer { get { return LayerMask.NameToLayer( playerLayer.ToString() );} }
-    public GameObject CurrentPlayerGameObject { get { return playerGameObject; } }
+    public PlayerControl CurrentPlayer { get { return player; } }
+    public EnemySpawner EnemySpawner { get { return enemySpawner; } }
 
     [HideInInspector]
     public List<EnemyBase> enemiesToTransfer = new List<EnemyBase>();

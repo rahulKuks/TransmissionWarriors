@@ -18,4 +18,12 @@ public class Bullet : MonoBehaviour
         LifeTime -= Time.deltaTime;
         if (LifeTime <= 0) { Destroy(this.gameObject); }
 	}
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag.Equals("Floor"))
+        {
+            Destroy(this.gameObject);
+        }
+    }
 }

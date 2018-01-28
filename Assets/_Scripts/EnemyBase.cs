@@ -20,8 +20,15 @@ public class EnemyBase : MonoBehaviour
     [SerializeField]
     private int maxHealth = 1000;
 
+    [SerializeField]
+    private int damage = 100;
+
+    [SerializeField]
+    private float bounceDistance = 2f;
+
     public Transform target { set; get; }
     public EnemyState CurrentState { private set { currentState = value; } get { return currentState;  } }
+    public int Damage { private set { damage = value; } get { return damage; } }
 
     private EnemyState currentState;
     private int currentHealth;
@@ -51,7 +58,7 @@ public class EnemyBase : MonoBehaviour
         if (other.CompareTag(Bullet.BULLET_TAG))
         {
             Bullet bullet = other.GetComponent<Bullet>();
-            GetHit(bullet.Damage);
+            GetHit(bullet.Damage, other.transform);
         }
     }
 
@@ -61,8 +68,12 @@ public class EnemyBase : MonoBehaviour
         currentState = EnemyState.Idle;
     }
 
-    public void GetHit(int damage)
+    public void GetHit(int damage, Transform attacker, float bounceMultiplier = 1f)
     {
+        Vector3 bounceDirection = (transform.position - attacker.position).normalized;
+        bounceDirection *= bounceDistance * bounceMultiplier;
+        transform.Translate(new Vector3(bounceDirection.x, 0, bounceDirection.z));
+
         currentHealth -= damage;
 
         if(currentState != EnemyState.Dead && currentHealth <= 0)

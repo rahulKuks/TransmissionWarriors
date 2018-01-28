@@ -16,21 +16,24 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private float safeZonePercent = 0.05f;
 
+    [SerializeField]
+    private float spawnInterval = 15f;
+
     public List<GameObject> Enemies { set; get; }
     private List<GameObject> EnemiesToRemove = new List<GameObject>();
 
-	private void Start ()
-    {
-        Enemies = new List<GameObject>();
-        Enemies.Add(SpawnEnemy());
-        Enemies.Add(SpawnEnemy());
-        Enemies.Add(SpawnEnemy());
-        Enemies.Add(SpawnEnemy());
-        Enemies.Add(SpawnEnemy());
-    }
+    private float spawnTimer;
 
-    private void Update()
+	private void Update()
     {
+        spawnTimer += Time.deltaTime;
+
+        if(spawnTimer >= spawnInterval)
+        {
+            spawnTimer = spawnInterval - spawnTimer;
+            Enemies.Add(SpawnEnemy());
+        }
+
         foreach(GameObject currentEnemy in Enemies)
         {
             EnemyBase enemyBase = currentEnemy.GetComponent<EnemyBase>();
@@ -51,20 +54,26 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private GameObject SpawnEnemy()
+    public void Initialize()
     {
-        GameObject newEnemy = null;
-        newEnemy = Instantiate(enemyPrefab, Vector3.zero, Quaternion.identity, transform);
-        
-        SetupNewEnemy(newEnemy);
-
-        return newEnemy;
+        Enemies = new List<GameObject>();
+        Enemies.Add(SpawnEnemy());
     }
 
     public void SpawnTransferredEnemy(GameObject newEnemy)
     {
         Enemies.Add(newEnemy);
         SetupNewEnemy(newEnemy);
+    }
+
+    private GameObject SpawnEnemy()
+    {
+        GameObject newEnemy = null;
+        newEnemy = Instantiate(enemyPrefab, Vector3.zero, Quaternion.identity, transform);
+
+        SetupNewEnemy(newEnemy);
+
+        return newEnemy;
     }
 
     private void SetupNewEnemy(GameObject newEnemy)
@@ -89,7 +98,7 @@ public class EnemySpawner : MonoBehaviour
                 newEnemy.transform.localPosition = spawnPosition;
 
                 EnemyBase enemyAI = newEnemy.GetComponent<EnemyBase>();
-                enemyAI.target = playerWorld.CurrentPlayerGameObject.transform;
+                enemyAI.target = playerWorld.CurrentPlayer.gameObject.transform;
                 enemyAI.Initialize();
             }
         }
