@@ -63,8 +63,15 @@ public class PlayerControl : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
+        if (cam != null)
+        {
+            hpBar.transform.LookAt(hpBar.transform.position + cam.transform.rotation * Vector3.forward, cam.transform.rotation * Vector3.up);
+            // hpBar.transform.LookAt(hpBar.transform.position - cam.transform.position);
+
+        }
+
         currentMeleeCd -= Time.deltaTime;
         if (PlayerID == PlayerTag.Player1)
         {
@@ -194,17 +201,6 @@ public class PlayerControl : MonoBehaviour
             //  Debug.Log("OnAirTime" + onAirTime);
             remainingImmuneTime -= Time.deltaTime;
         }
-    }
-
-    private void Update()
-    {
-        if(cam != null)
-        {
-            hpBar.transform.LookAt(hpBar.transform.position + cam.transform.rotation * Vector3.forward,cam.transform.rotation * Vector3.up);
-           // hpBar.transform.LookAt(hpBar.transform.position - cam.transform.position);
-
-        }
-
     }
 
     void TakeDamage(int monsterAttack)
