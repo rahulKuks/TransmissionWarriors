@@ -24,13 +24,7 @@ public class EnemySpawner : MonoBehaviour
 
     private float spawnTimer;
 
-	private void Start ()
-    {
-        Enemies = new List<GameObject>();
-        Enemies.Add(SpawnEnemy());
-    }
-
-    private void Update()
+	private void Update()
     {
         spawnTimer += Time.deltaTime;
 
@@ -60,20 +54,26 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private GameObject SpawnEnemy()
+    public void Initialize()
     {
-        GameObject newEnemy = null;
-        newEnemy = Instantiate(enemyPrefab, Vector3.zero, Quaternion.identity, transform);
-        
-        SetupNewEnemy(newEnemy);
-
-        return newEnemy;
+        Enemies = new List<GameObject>();
+        Enemies.Add(SpawnEnemy());
     }
 
     public void SpawnTransferredEnemy(GameObject newEnemy)
     {
         Enemies.Add(newEnemy);
         SetupNewEnemy(newEnemy);
+    }
+
+    private GameObject SpawnEnemy()
+    {
+        GameObject newEnemy = null;
+        newEnemy = Instantiate(enemyPrefab, Vector3.zero, Quaternion.identity, transform);
+
+        SetupNewEnemy(newEnemy);
+
+        return newEnemy;
     }
 
     private void SetupNewEnemy(GameObject newEnemy)
@@ -98,7 +98,7 @@ public class EnemySpawner : MonoBehaviour
                 newEnemy.transform.localPosition = spawnPosition;
 
                 EnemyBase enemyAI = newEnemy.GetComponent<EnemyBase>();
-                enemyAI.target = playerWorld.CurrentPlayerGameObject.transform;
+                enemyAI.target = playerWorld.CurrentPlayer.gameObject.transform;
                 enemyAI.Initialize();
             }
         }

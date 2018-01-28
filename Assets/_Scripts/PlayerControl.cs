@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
+    public enum PlayerState
+    {
+        Idle,
+        Dead
+    }
+
     public enum PlayerTag { Player1, Player2};
     public PlayerTag tag = PlayerTag.Player1;
     public enum Direction { North, East, South, West,NE,NW,SE,SW };
@@ -22,6 +28,8 @@ public class PlayerControl : MonoBehaviour
     private float remainingImmuneTime = 0f;
     public float bounceDistance = 0.3f;
 
+    public PlayerState CurrentState { private set; get; }
+
     [SerializeField]
     private PlayerWorld currentPlayerWorld;
 
@@ -29,6 +37,7 @@ public class PlayerControl : MonoBehaviour
     void Start()
     {
         currentHP = maxHP;
+        CurrentState = PlayerState.Idle;
     }
 
     // Update is called once per frame
@@ -154,8 +163,8 @@ public class PlayerControl : MonoBehaviour
 
     void Die()
     {
-        Destroy(gameObject);
-        //TODO
+        CurrentState = PlayerState.Dead;
+        gameObject.SetActive(false);
     }
 
     void setDirection()
