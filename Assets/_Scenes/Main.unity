@@ -645,7 +645,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &552102650
 RectTransform:
   m_ObjectHideFlags: 0
@@ -780,6 +780,7 @@ MonoBehaviour:
   playerWorlds:
   - {fileID: 565800233}
   - {fileID: 1811303916}
+  uiManager: {fileID: 0}
 --- !u!1 &672728364
 GameObject:
   m_ObjectHideFlags: 0

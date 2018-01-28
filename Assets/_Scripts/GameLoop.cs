@@ -50,7 +50,7 @@ public class GameLoop : MonoBehaviour
                 break;
 
             case GameState.TriggerGameOver:
-                uiManager.SetGameOverMessage();
+                uiManager.SetGameOverMessage("");
                 break;
             case GameState.GameOver:
                 //Poll input to reset game
