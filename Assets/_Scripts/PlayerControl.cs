@@ -20,7 +20,8 @@ public class PlayerControl : MonoBehaviour
     private float onAirTime = 0.0f;
     public float jumpCD = 0.5f;//the time the player can hold the jump button and it's still effective, holding it after this time will just fall down
     public float fireCD = 0.15f;
-    private float currentFireCD = 0f;
+	[HideInInspector]
+    public float currentFireCD = 0f;
     public Gun gun;
     public int maxHP = 50;
     public int currentHP;
@@ -183,7 +184,7 @@ public class PlayerControl : MonoBehaviour
         hpBar.setHP((float)currentHP / (float)maxHP);
     }
     //helper functions
-    bool isAiming()
+    public bool isAiming()
     {
         if (PlayerID == PlayerTag.Player1)
         {
