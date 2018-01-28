@@ -69,7 +69,7 @@ MonoBehaviour:
       screenEdgeMask:
         intensity: 0.03
   depthOfField:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
       focusDistance: 7.19
       aperture: 29.5
@@ -121,11 +121,11 @@ MonoBehaviour:
         neutralWhiteClip: 10
       basic:
         postExposure: 0.3
-        temperature: 5.9
-        tint: -52.2
-        hueShift: -46
-        saturation: 0.733
-        contrast: 1.015
+        temperature: -2
+        tint: -4
+        hueShift: 0
+        saturation: 1.55
+        contrast: 1.02
       channelMixer:
         red: {x: 1, y: 0, z: 0}
         green: {x: 0, y: 1, z: 0}
@@ -134,9 +134,9 @@ MonoBehaviour:
       colorWheels:
         mode: 1
         log:
-          slope: {r: 1, g: 0.9197072, b: 0.71042293, a: 0}
-          power: {r: 1, g: 0.94452524, b: 0.87348944, a: 0}
-          offset: {r: 0.9590641, g: 1, b: 0.9181283, a: 0}
+          slope: {r: 1, g: 0.75964606, b: 0, a: 0}
+          power: {r: 1, g: 0.8202216, b: 0.59001285, a: 0}
+          offset: {r: 1, g: 1, b: 1, a: 0}
         linear:
           lift: {r: 0, g: 0, b: 0, a: 0}
           gamma: {r: 0, g: 0, b: 0, a: 0}

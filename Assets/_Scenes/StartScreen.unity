@@ -432,22 +432,22 @@ Prefab:
     - target: {fileID: 224720801453208350, guid: 30a83c132617840449aae580ee23816f,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 403.3333
       objectReference: {fileID: 0}
     - target: {fileID: 224720801453208350, guid: 30a83c132617840449aae580ee23816f,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -117.95
       objectReference: {fileID: 0}
     - target: {fileID: 224720801453208350, guid: 30a83c132617840449aae580ee23816f,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 506.66666
       objectReference: {fileID: 0}
     - target: {fileID: 224720801453208350, guid: 30a83c132617840449aae580ee23816f,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 155.9
       objectReference: {fileID: 0}
     - target: {fileID: 224720801453208350, guid: 30a83c132617840449aae580ee23816f,
         type: 2}
@@ -457,7 +457,7 @@ Prefab:
     - target: {fileID: 224720801453208350, guid: 30a83c132617840449aae580ee23816f,
         type: 2}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224720801453208350, guid: 30a83c132617840449aae580ee23816f,
         type: 2}
@@ -467,7 +467,7 @@ Prefab:
     - target: {fileID: 224720801453208350, guid: 30a83c132617840449aae580ee23816f,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224720801453208350, guid: 30a83c132617840449aae580ee23816f,
         type: 2}
@@ -657,7 +657,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 427972184dfcc43d7aed668e28c7bb9a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2f3c874b8fc4347288c8a8fcf239135c, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -972,7 +972,7 @@ Prefab:
     - target: {fileID: 224738706632710170, guid: 47d113b8849bf4ec6b340c50e62e27c5,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 959.6105
+      value: 959.99994
       objectReference: {fileID: 0}
     - target: {fileID: 224738706632710170, guid: 47d113b8849bf4ec6b340c50e62e27c5,
         type: 2}
@@ -982,7 +982,7 @@ Prefab:
     - target: {fileID: 224738706632710170, guid: 47d113b8849bf4ec6b340c50e62e27c5,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 506.40695
+      value: 506.66666
       objectReference: {fileID: 0}
     - target: {fileID: 224738706632710170, guid: 47d113b8849bf4ec6b340c50e62e27c5,
         type: 2}
@@ -1082,7 +1082,7 @@ Prefab:
     - target: {fileID: 224227726353522742, guid: de1df0211f8914f54b8271c5cea7084a,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 1516.0175
+      value: 1516.6666
       objectReference: {fileID: 0}
     - target: {fileID: 224227726353522742, guid: de1df0211f8914f54b8271c5cea7084a,
         type: 2}
@@ -1092,7 +1092,7 @@ Prefab:
     - target: {fileID: 224227726353522742, guid: de1df0211f8914f54b8271c5cea7084a,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 506.40695
+      value: 506.66666
       objectReference: {fileID: 0}
     - target: {fileID: 224227726353522742, guid: de1df0211f8914f54b8271c5cea7084a,
         type: 2}
