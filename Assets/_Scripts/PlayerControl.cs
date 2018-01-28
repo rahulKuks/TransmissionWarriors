@@ -29,9 +29,10 @@ public class PlayerControl : MonoBehaviour
     private float remainingImmuneTime = 0f;
     public float bounceDistance = 0.3f;
     public float meleeCD = 3f;
-    private float currentMeleeCd = 0f;
+	public float currentMeleeCd = 0f;
     public int meleeDamage = 100;
     public float meleeBounceStrength = 3.0f; //how much the melee attack will bounce the enemy away
+	public bool isAttacking;
 
     //audio
     public AudioSource MeleeSFX;
@@ -106,10 +107,10 @@ public class PlayerControl : MonoBehaviour
                         if ((hit.transform.tag == "Enemy"))
                         {
                             Melee(hit.transform.gameObject.GetComponent<EnemyBase>());
-                        }
+						}
+					currentMeleeCd = meleeCD;
 
                 }
-                currentMeleeCd = meleeCD;
 
 
             };
@@ -173,8 +174,8 @@ public class PlayerControl : MonoBehaviour
                             Melee(hit.transform.gameObject.GetComponent<EnemyBase>());
                         }
 
+					currentMeleeCd = meleeCD;
                 }
-                currentMeleeCd = meleeCD;
 
             };
 
