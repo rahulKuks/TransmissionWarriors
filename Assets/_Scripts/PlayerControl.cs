@@ -11,7 +11,7 @@ public class PlayerControl : MonoBehaviour
     }
 
     public enum PlayerTag { Player1, Player2};
-    public PlayerTag tag = PlayerTag.Player1;
+    public PlayerTag PlayerID = PlayerTag.Player1;
     public enum Direction { North, East, South, West,NE,NW,SE,SW };
     public Direction facing = Direction.South;
     public float speed = 0.5f;
@@ -49,7 +49,7 @@ public class PlayerControl : MonoBehaviour
     void FixedUpdate()
     {
         currentMeleeCd -= Time.deltaTime;
-        if (tag == PlayerTag.Player1)
+        if (PlayerID == PlayerTag.Player1)
         {
             if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) //pressing direction key(s)
             {
@@ -94,7 +94,7 @@ public class PlayerControl : MonoBehaviour
             //  Debug.Log("OnAirTime" + onAirTime);
             remainingImmuneTime -= Time.deltaTime;
         }
-        else if (tag == PlayerTag.Player2)
+        else if (PlayerID == PlayerTag.Player2)
         {
             if (Input.GetAxis("Horizontal2") != 0 || Input.GetAxis("Vertical2") != 0) //pressing direction key(s)
             {
@@ -156,7 +156,7 @@ public class PlayerControl : MonoBehaviour
     //helper functions
     bool isAiming()
     {
-        if (tag== PlayerTag.Player1)
+        if (PlayerID == PlayerTag.Player1)
         {
             return Input.GetKey(KeyCode.LeftShift) || Input.GetButton("Aim1");
         }
@@ -182,7 +182,7 @@ public class PlayerControl : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
         //discard the previous lines, for player2, check on player2 input sets
-        if (tag == PlayerTag.Player2)
+        if (PlayerID == PlayerTag.Player2)
         {
             x = Input.GetAxis("Horizontal2");
             z = Input.GetAxis("Vertical2");
@@ -288,14 +288,14 @@ public class PlayerControl : MonoBehaviour
         }
         if(Vector3.Dot((other.transform.position-transform.position)/*vector from player to enemy*/, transform.forward) > 0)
         {
-            if (tag == PlayerTag.Player1)
+            if (PlayerID == PlayerTag.Player1)
             {
                 if (Input.GetKeyDown(KeyCode.V))
                 {
                     Melee();
                 }
             }
-            else if (tag == PlayerTag.Player2)
+            else if (PlayerID == PlayerTag.Player2)
             {
                 if (Input.GetKeyDown(KeyCode.I))
                 {
