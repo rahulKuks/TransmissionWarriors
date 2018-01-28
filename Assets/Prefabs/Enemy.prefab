@@ -607,8 +607,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb82a4d812f0570478a83dd89961884b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkingSpeed: 2.5
-  attackRadius: 10
+  walkingSpeed: 3.5
+  attackRadius: 25
   maxHealth: 1000
   damage: 100
   bounceDistance: 2
