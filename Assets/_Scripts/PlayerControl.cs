@@ -22,6 +22,9 @@ public class PlayerControl : MonoBehaviour
     private float remainingImmuneTime = 0f;
     public float bonceDistance = 0.3f;
 
+    [SerializeField]
+    private PlayerWorld currentPlayerWorld;
+
                               // Use this for initialization
     void Start()
     {
@@ -36,7 +39,6 @@ public class PlayerControl : MonoBehaviour
             if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) //pressing direction key(s)
             {
                 setDirection();
-                Debug.Log("Direction:" + facing);
                 if (!isAiming())//not aiming means: moving
                 {
 
@@ -72,7 +74,7 @@ public class PlayerControl : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.F) && currentFireCD <= 0)
                 {
-                    gun.Fire();
+                    gun.Fire(currentPlayerWorld.CurrentPlayerLayer);
                     currentFireCD = fireCD;
                 }
             }
@@ -86,7 +88,6 @@ public class PlayerControl : MonoBehaviour
             if (Input.GetAxis("Horizontal2") != 0 || Input.GetAxis("Vertical2") != 0) //pressing direction key(s)
             {
                 setDirection();
-                Debug.Log("Direction:" + facing);
                 if (!isAiming())//not aiming means: moving
                 {
 
@@ -124,14 +125,14 @@ public class PlayerControl : MonoBehaviour
                 {
                     if (tag == PlayerTag.Player1 && Input.GetKey(KeyCode.F))
                     {
-                        gun.Fire();
+                        gun.Fire(currentPlayerWorld.CurrentPlayerLayer);
                         currentFireCD = fireCD;
                     }
                     
 
                     if (tag == PlayerTag.Player2 && Input.GetKey(KeyCode.L))
                     {
-                        gun.Fire();
+                        gun.Fire(currentPlayerWorld.CurrentPlayerLayer);
                         currentFireCD = fireCD;
                     }
                         

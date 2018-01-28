@@ -14,6 +14,18 @@ public class TransmissionManager : MonoBehaviour
 	
 	void Update ()
     {
-		
+        for (int i = 0; i < playerWorlds.Length; i++)
+        {
+            if(playerWorlds[i].enemiesToTransfer.Count > 0)
+            {
+                foreach(EnemyBase enemy in playerWorlds[i].enemiesToTransfer)
+                {
+                    int nextPlayerWorld = (i + 1) % playerWorlds.Length;
+                    playerWorlds[nextPlayerWorld].RecieveEnemy(enemy.gameObject);
+                }
+            }
+
+            playerWorlds[i].enemiesToTransfer.Clear();
+        }
 	}
 }

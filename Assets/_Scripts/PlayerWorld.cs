@@ -17,14 +17,27 @@ public class PlayerWorld : MonoBehaviour
     [SerializeField]
     private GameObject playerGameObject;
 
+    [SerializeField]
+    private EnemySpawner enemySpawner;
+
     public int CurrentPlayerLayer { get { return LayerMask.NameToLayer( playerLayer.ToString() );} }
     public GameObject CurrentPlayerGameObject { get { return playerGameObject; } }
 
-    private List<EnemyBase> enemiesToTransfer = new List<EnemyBase>();
+    [HideInInspector]
+    public List<EnemyBase> enemiesToTransfer = new List<EnemyBase>();
 
     void Start ()
     {
 		
 	}
-	
+
+    private void Update()
+    {
+    }
+
+    public void RecieveEnemy(GameObject transferredEnemy)
+    {
+        enemySpawner.SpawnTransferredEnemy(transferredEnemy);
+    }
+
 }

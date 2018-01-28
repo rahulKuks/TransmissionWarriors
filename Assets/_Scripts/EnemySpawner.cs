@@ -16,21 +16,54 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private float safeZonePercent = 0.05f;
 
-	void Start ()
+    public List<GameObject> Enemies { set; get; }
+    private List<GameObject> EnemiesToRemove = new List<GameObject>();
+
+	private void Start ()
     {
-        SpawnEnemy(playerWorld.CurrentPlayerLayer);
-        SpawnEnemy(playerWorld.CurrentPlayerLayer);
-        SpawnEnemy(playerWorld.CurrentPlayerLayer);
-        SpawnEnemy(playerWorld.CurrentPlayerLayer);
-        SpawnEnemy(playerWorld.CurrentPlayerLayer);
+        Enemies = new List<GameObject>();
+        Enemies.Add(SpawnEnemy());
+        Enemies.Add(SpawnEnemy());
+        Enemies.Add(SpawnEnemy());
+        Enemies.Add(SpawnEnemy());
+        Enemies.Add(SpawnEnemy());
     }
 
-    private void SpawnEnemy(int layerMask)
+    private void Update()
+    {
+        foreach(GameObject currentEnemy in Enemies)
+        {
+            EnemyBase enemyBase = currentEnemy.GetComponent<EnemyBase>();
+            if (enemyBase.CurrentState == EnemyBase.EnemyState.Dead)
+            {
+                EnemiesToRemove.Add(currentEnemy);
+                playerWorld.enemiesToTransfer.Add(enemyBase);
+            }
+        }
+
+        if(EnemiesToRemove.Count > 0)
+        {
+            foreach (GameObject currentEnemy in EnemiesToRemove)
+            {
+                Enemies.Remove(currentEnemy);
+            }
+            EnemiesToRemove.Clear();
+        }
+    }
+
+    private GameObject SpawnEnemy()
     {
         GameObject newEnemy = null;
         newEnemy = Instantiate(enemyPrefab, Vector3.zero, Quaternion.identity, transform);
-        newEnemy.layer = layerMask;
+        
+        SetupNewEnemy(newEnemy);
 
+        return newEnemy;
+    }
+
+    public void SpawnTransferredEnemy(GameObject newEnemy)
+    {
+        Enemies.Add(newEnemy);
         SetupNewEnemy(newEnemy);
     }
 
@@ -38,6 +71,7 @@ public class EnemySpawner : MonoBehaviour
     {
         if(newEnemy != null)
         {
+            newEnemy.layer = playerWorld.CurrentPlayerLayer;
             BoxCollider randomSpawnPlane = spawnPlanes[Random.Range(0, spawnPlanes.Length - 1)];
             BoxCollider newEnemyBox = newEnemy.GetComponent<BoxCollider>();
             if (newEnemyBox != null)
@@ -54,4 +88,6 @@ public class EnemySpawner : MonoBehaviour
             }
         }
     }
+
+
 }

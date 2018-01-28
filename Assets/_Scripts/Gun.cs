@@ -12,12 +12,11 @@ public class Gun : MonoBehaviour {
 		
 	}
 
-    public void Fire()
+    public void Fire(int layer)
     {
        
         Bullet bullet = Instantiate(bulletPrefeb,this.transform.position+ transform.up*2f, this.transform.rotation);
         bullet.GetComponent<Rigidbody>().velocity = bullet.transform.up * bulletVelocity;
-
-     
+        bullet.gameObject.layer = layer;
     }
 }
