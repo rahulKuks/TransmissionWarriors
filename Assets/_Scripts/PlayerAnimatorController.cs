@@ -7,6 +7,8 @@ public class PlayerAnimatorController : MonoBehaviour
 	PlayerControl player;
 	Animator anim;
 	public float rotationalYOffset;
+	public float TimeToLowerGun = 0.5f;
+	float timer;
 
 	// Use this for initialization
 	void Start () 
@@ -18,9 +20,10 @@ public class PlayerAnimatorController : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+		timer += Time.deltaTime;
 		var locVel = transform.InverseTransformDirection (player.rb.velocity);
 		anim.SetFloat ("ForwardMovement", locVel.z);
-		anim.SetBool ("isAiming", player.isAiming());
+		//anim.SetBool ("isAiming", player.isAiming());
 		if (player.isAiming ()) {
 			transform.localEulerAngles = (new Vector3 (0, rotationalYOffset, 0));
 		} 
@@ -28,9 +31,15 @@ public class PlayerAnimatorController : MonoBehaviour
 		{
 			transform.localRotation = Quaternion.identity;
 		}
-		if ( (Input.GetKey(KeyCode.F) || Input.GetButtonDown("Fire1") ) && player.currentFireCD <= 0)
+		if ( (Input.GetKey(KeyCode.F) || Input.GetButton("Fire1") ))
 		{
-			anim.SetTrigger ("Shoot");	
+			//anim.SetTrigger ("Shoot");	
+			anim.SetBool ("isAiming", true);
+			timer = 0;
+		} 
+		else if (timer >= TimeToLowerGun)
+		{
+			anim.SetBool ("isAiming", false);
 		}
 		if (false) 
 		{
