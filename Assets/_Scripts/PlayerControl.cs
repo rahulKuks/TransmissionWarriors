@@ -32,6 +32,8 @@ public class PlayerControl : MonoBehaviour
     public int meleeDamage = 100;
     public float meleeBounceStrength = 3.0f; //how much the melee attack will bounce the enemy away
 
+    [SerializeField]
+    Camera cam;
 
 
     public PlayerState CurrentState { private set; get; }
@@ -61,8 +63,13 @@ public class PlayerControl : MonoBehaviour
                     float x = Input.GetAxis("Horizontal");
                     float z = Input.GetAxis("Vertical");
 
-                    rb.velocity += new Vector3(x, 0, z).normalized * speed;
+                    rb.velocity += getCameraMovement(x, z).normalized * speed;
                 }
+            }
+            
+            if (isAiming())
+            {
+                rb.velocity = new Vector3(0,0,0);
             }
 
 
@@ -82,14 +89,14 @@ public class PlayerControl : MonoBehaviour
 
             // aim, then fire
             currentFireCD -= Time.deltaTime;
-            if (isAiming())
-            {
+           // if (isAiming())
+            //{
                 if ( (Input.GetKey(KeyCode.F) || Input.GetButtonDown("Fire1") ) && currentFireCD <= 0)
                 {
                     gun.Fire(currentPlayerWorld.CurrentPlayerLayer);
                     currentFireCD = fireCD;
                 }
-            }
+           // }
 
 
             //  Debug.Log("OnAirTime" + onAirTime);
@@ -106,8 +113,13 @@ public class PlayerControl : MonoBehaviour
                     float x = Input.GetAxis("Horizontal2");
                     float z = Input.GetAxis("Vertical2");
 
-                    rb.velocity += new Vector3(x, 0, z).normalized * speed;
+                    rb.velocity += getCameraMovement( x, z).normalized * speed;
                 }
+            }
+            
+            if (isAiming())
+            {
+                rb.velocity = new Vector3(0, 0, 0);
             }
 
 
@@ -127,14 +139,14 @@ public class PlayerControl : MonoBehaviour
 
             // aim, then fire
             currentFireCD -= Time.deltaTime;
-            if (isAiming())
-            {
+           // if (isAiming())
+           // {
                 if ((Input.GetKey(KeyCode.L) || Input.GetButtonDown("Fire2")) && currentFireCD <= 0)
                 {
                     gun.Fire(currentPlayerWorld.CurrentPlayerLayer);
                     currentFireCD = fireCD;
                 }
-            }
+          //  }
 
 
             //  Debug.Log("OnAirTime" + onAirTime);
@@ -181,33 +193,43 @@ public class PlayerControl : MonoBehaviour
 
     void setDirection()
     {
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        float x = Input.GetAxisRaw("Horizontal");
+        float z = Input.GetAxisRaw("Vertical");
+   
         //discard the previous lines, for player2, check on player2 input sets
         if (PlayerID == PlayerTag.Player2)
         {
-            x = Input.GetAxis("Horizontal2");
-            z = Input.GetAxis("Vertical2");
+            x = Input.GetAxisRaw("Horizontal2");
+            z = Input.GetAxisRaw("Vertical2");
         }
         if (x != 0) //has x componet in world coodinate
         {
             if (x > 0)//somewhere east
             {
-                if(z < 0) // somewhere south
+                if (z < 0) // somewhere south
                 {
                     facing = Direction.SE;
-                    transform.rotation= Quaternion.LookRotation(new Vector3(1, 0, -1));
+                    Vector3 direction = ((cam.transform.right) + (cam.transform.forward * -1)).normalized;
+                    direction.y = 0;
+                    transform.rotation = Quaternion.LookRotation(direction);
+                    // transform.rotation= Quaternion.LookRotation(new Vector3(1, 0, -1));
 
                 }
                 else if (z > 0) // somewhere north
                 {
                     facing = Direction.NE;
-                    transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, 1));
+                    Vector3 direction = ((cam.transform.right) + (cam.transform.forward)).normalized;
+                    direction.y = 0;
+                    transform.rotation = Quaternion.LookRotation(direction);
+                    //transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, 1));
                 }
                 else
                 {
                     facing = Direction.East;
-                    transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, 0));
+                    Vector3 direction = cam.transform.right;
+                    direction.y = 0;
+                    transform.rotation = Quaternion.LookRotation(direction);
+                    //transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, 0));
                 }
             }
             else if (x < 0) // somewhere west
@@ -215,37 +237,56 @@ public class PlayerControl : MonoBehaviour
                 if (z < 0) // somwhere south
                 {
                     facing = Direction.SW;
-                    transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, -1));
+                    Vector3 direction = ((cam.transform.right * -1) + (cam.transform.forward * -1)).normalized;
+                    direction.y = 0;
+                    transform.rotation = Quaternion.LookRotation(direction);
+                    //transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, -1));
                 }
                 else if (z > 0)//somewhere north
                 {
                     facing = Direction.NW;
-                    transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, 1));
+                    Vector3 direction = ((cam.transform.right * -1) + (cam.transform.forward)).normalized;
+                    direction.y = 0;
+                    transform.rotation = Quaternion.LookRotation(direction);
+                    //transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, 1));
                 }
                 else
                 {
                     facing = Direction.West;
-                    transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, 0));
+                    Vector3 direction = cam.transform.right * -1;
+                    direction.y = 0;
+                    transform.rotation = Quaternion.LookRotation(direction);
+                    //transform.rotation = Quaternion.LookRotation(new Vector3(-1, 0, 0));
                 }
             }
-            
+
         }
         else // there is no x component in world coordinate
         {
             if (z > 0) //south
             {
-                facing = Direction.South;
-                transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, 1));
+                facing = Direction.North;
+                //transform.rotation = Quaternion.LookRotation(new Vector3(.5f, 0, 1));
+                Vector3 direction = cam.transform.forward;
+                direction.y = 0;
+                transform.rotation = Quaternion.LookRotation(direction);
+
             }
             else if (z < 0)
             {
-                facing = Direction.North;
-                transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, -1));
+                facing = Direction.South;
+                Vector3 direction = cam.transform.forward * -1;
+                direction.y = 0;
+                transform.rotation = Quaternion.LookRotation(direction);
+                //   transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, -1));
+
+
             }
         }
     }
 
-    
+
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.tag.Equals("Floor"))//check collision with floor...
@@ -312,4 +353,72 @@ public class PlayerControl : MonoBehaviour
        
         
     }
+
+    Vector3 getCameraMovement(float x, float z)
+    {
+        if (z > 0)
+        {
+            if (x == 0)
+            {
+                Vector3 direction = cam.transform.forward;
+                return new Vector3(direction.x, 0, direction.z);
+
+            }
+            else
+            if (x > 0)
+            {
+                Vector3 direction = (cam.transform.forward + cam.transform.right).normalized;
+                return new Vector3(direction.x, 0, direction.z);
+            }
+            else
+            {
+                Vector3 direction = (cam.transform.forward + cam.transform.right * -1).normalized;
+                return new Vector3(direction.x, 0, direction.z);
+            }
+        }
+        else
+        if (z < 0)
+        {
+            if (x == 0)
+            {
+                Vector3 direction = cam.transform.forward * -1;
+                return new Vector3(direction.x, 0, direction.z);
+
+            }
+            else
+                if (x > 0)
+            {
+                Vector3 direction = ((cam.transform.forward * -1) + (cam.transform.right));
+                return new Vector3(direction.x, 0, direction.z);
+            }
+            else
+                if (x < 0)
+            {
+                Vector3 direction = ((cam.transform.forward * -1) + (cam.transform.right * -1));
+                return new Vector3(direction.x, 0, direction.z);
+            }
+
+        }
+        else
+        if (z == 0)
+        {
+
+            if (x > 0)
+            {
+                Vector3 direction = cam.transform.right;
+                return new Vector3(direction.x, 0, direction.z);
+            }
+            if (x < 0)
+            {
+                Vector3 direction = cam.transform.right * -1;
+                return new Vector3(direction.x, 0, direction.z);
+            }
+        }
+
+        return new Vector3(x, 0, z);
+    }
+
 }
+
+
+
