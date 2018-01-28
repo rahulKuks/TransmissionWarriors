@@ -20,14 +20,12 @@ public class PlayerControl : MonoBehaviour
     public int currentHP;
     public float immuneTime = 2f;
     private float remainingImmuneTime = 0f;
-<<<<<<< HEAD
-    public float bonceDistance = 0.3f;
+    public float bounceDistance = 0.3f;
     public float meleeCD = 3f;
     private float currentMeleeCd = 0f;
     public int meleeDamage = 100;
-=======
-    public float bounceDistance = 0.3f;
->>>>>>> a6d299d4cbbf12bd2404dc0c87305c8f77270c01
+
+
 
     [SerializeField]
     private PlayerWorld currentPlayerWorld;
