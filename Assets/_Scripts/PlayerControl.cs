@@ -32,6 +32,10 @@ public class PlayerControl : MonoBehaviour
     public int meleeDamage = 100;
     public float meleeBounceStrength = 3.0f; //how much the melee attack will bounce the enemy away
 
+    public HpBar hpBar;
+
+
+
     [SerializeField]
     Camera cam;
 
@@ -154,6 +158,15 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if(cam != null)
+        {
+            hpBar.transform.LookAt(hpBar.transform.position - cam.transform.position);
+        }
+
+    }
+
     void TakeDamage(int monsterAttack)
     {
         if (currentHP > monsterAttack)
@@ -165,6 +178,7 @@ public class PlayerControl : MonoBehaviour
         {
             currentHP = 0;
         }
+        hpBar.setHP((float)currentHP / (float)maxHP);
     }
     //helper functions
     bool isAiming()

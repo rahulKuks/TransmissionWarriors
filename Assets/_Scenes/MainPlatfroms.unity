@@ -1856,15 +1856,9 @@ MeshFilter:
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114227482064669124, guid: 193fd07ef96c85b43886159e2d9e4f30,
     type: 2}
-  m_PrefabInternal: {fileID: 1374167683}
+  m_PrefabInternal: {fileID: 1225444743}
   m_Script: {fileID: 11500000, guid: 31db51d54b9c51c419932d864e56ea42, type: 3}
---- !u!114 &1340688180 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114227482064669124, guid: 193fd07ef96c85b43886159e2d9e4f30,
-    type: 2}
-  m_PrefabInternal: {fileID: 2045389929}
-  m_Script: {fileID: 11500000, guid: 31db51d54b9c51c419932d864e56ea42, type: 3}
---- !u!1001 &1374167683
+--- !u!1001 &1225444743
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1903,38 +1897,29 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1336421428661024, guid: 193fd07ef96c85b43886159e2d9e4f30, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 1530697538509008, guid: 193fd07ef96c85b43886159e2d9e4f30, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1003726850374404, guid: 193fd07ef96c85b43886159e2d9e4f30, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1643296943478084, guid: 193fd07ef96c85b43886159e2d9e4f30, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1748858239651422, guid: 193fd07ef96c85b43886159e2d9e4f30, type: 2}
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1135718899530774, guid: 193fd07ef96c85b43886159e2d9e4f30, type: 2}
       propertyPath: m_Layer
       value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 114227482064669124, guid: 193fd07ef96c85b43886159e2d9e4f30,
-        type: 2}
-      propertyPath: tag
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114227482064669124, guid: 193fd07ef96c85b43886159e2d9e4f30,
-        type: 2}
-      propertyPath: currentPlayerWorld
-      value: 
-      objectReference: {fileID: 1811303916}
-    - target: {fileID: 114227482064669124, guid: 193fd07ef96c85b43886159e2d9e4f30,
-        type: 2}
-      propertyPath: maxHP
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 114227482064669124, guid: 193fd07ef96c85b43886159e2d9e4f30,
-        type: 2}
-      propertyPath: bonceDistance
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114227482064669124, guid: 193fd07ef96c85b43886159e2d9e4f30,
-        type: 2}
-      propertyPath: bounceDistance
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114227482064669124, guid: 193fd07ef96c85b43886159e2d9e4f30,
         type: 2}
@@ -1946,14 +1931,25 @@ Prefab:
       propertyPath: cam
       value: 
       objectReference: {fileID: 1114319475}
+    - target: {fileID: 114227482064669124, guid: 193fd07ef96c85b43886159e2d9e4f30,
+        type: 2}
+      propertyPath: currentPlayerWorld
+      value: 
+      objectReference: {fileID: 1811303916}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 193fd07ef96c85b43886159e2d9e4f30, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1340688180 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114227482064669124, guid: 193fd07ef96c85b43886159e2d9e4f30,
+    type: 2}
+  m_PrefabInternal: {fileID: 2045389929}
+  m_Script: {fileID: 11500000, guid: 31db51d54b9c51c419932d864e56ea42, type: 3}
 --- !u!4 &1374167684 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4009427069118712, guid: 193fd07ef96c85b43886159e2d9e4f30,
     type: 2}
-  m_PrefabInternal: {fileID: 1374167683}
+  m_PrefabInternal: {fileID: 1225444743}
 --- !u!1 &1545714210
 GameObject:
   m_ObjectHideFlags: 0
@@ -2233,39 +2229,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 1530697538509008, guid: 193fd07ef96c85b43886159e2d9e4f30, type: 2}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1135718899530774, guid: 193fd07ef96c85b43886159e2d9e4f30, type: 2}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 114227482064669124, guid: 193fd07ef96c85b43886159e2d9e4f30,
-        type: 2}
-      propertyPath: currentPlayerWorld
-      value: 
-      objectReference: {fileID: 565800233}
-    - target: {fileID: 114227482064669124, guid: 193fd07ef96c85b43886159e2d9e4f30,
-        type: 2}
-      propertyPath: bonceDistance
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114227482064669124, guid: 193fd07ef96c85b43886159e2d9e4f30,
-        type: 2}
-      propertyPath: maxHP
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 114227482064669124, guid: 193fd07ef96c85b43886159e2d9e4f30,
-        type: 2}
-      propertyPath: bounceDistance
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 114227482064669124, guid: 193fd07ef96c85b43886159e2d9e4f30,
         type: 2}
       propertyPath: cam
       value: 
       objectReference: {fileID: 227270815}
+    - target: {fileID: 114227482064669124, guid: 193fd07ef96c85b43886159e2d9e4f30,
+        type: 2}
+      propertyPath: currentPlayerWorld
+      value: 
+      objectReference: {fileID: 565800233}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 193fd07ef96c85b43886159e2d9e4f30, type: 2}
   m_IsPrefabParent: 0
