@@ -373,7 +373,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81bb0161cb6a8ee4d975bce4a0c18791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerWorlds: []
+  playerWorlds:
+  - {fileID: 565800233}
+  - {fileID: 1811303916}
 --- !u!4 &239968529
 Transform:
   m_ObjectHideFlags: 0

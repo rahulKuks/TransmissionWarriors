@@ -28,7 +28,7 @@ public class EnemyBase : MonoBehaviour
 
 	void Start ()
     {
-        currentState = EnemyState.Idle;
+        Initialize();
     }
 	
 	void Update ()
@@ -43,6 +43,15 @@ public class EnemyBase : MonoBehaviour
             }
 
             currentState = EnemyState.Idle;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag(Bullet.BULLET_TAG))
+        {
+            Bullet bullet = other.GetComponent<Bullet>();
+            GetHit(bullet.Damage);
         }
     }
 

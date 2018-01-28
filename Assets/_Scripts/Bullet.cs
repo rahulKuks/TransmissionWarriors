@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour {
+public class Bullet : MonoBehaviour
+{
+    [SerializeField]
+    private int damage = 1000;
 
-    public int Damage = 5;
+    public static readonly string BULLET_TAG = "Bullet";
+
     private float LifeTime = 10f; //10s is long enough for the bullet to travel anywhere
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    public int Damage { get { return damage; } private set { damage = value; } }
+
+	void Update ()
+    {
         LifeTime -= Time.deltaTime;
         if (LifeTime <= 0) { Destroy(this.gameObject); }
 	}

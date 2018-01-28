@@ -71,6 +71,11 @@ public class EnemySpawner : MonoBehaviour
     {
         if(newEnemy != null)
         {
+            if(newEnemy.transform.parent != transform)
+            {
+                newEnemy.transform.SetParent(transform);
+            }
+
             newEnemy.layer = playerWorld.CurrentPlayerLayer;
             BoxCollider randomSpawnPlane = spawnPlanes[Random.Range(0, spawnPlanes.Length - 1)];
             BoxCollider newEnemyBox = newEnemy.GetComponent<BoxCollider>();
@@ -85,6 +90,7 @@ public class EnemySpawner : MonoBehaviour
 
                 EnemyBase enemyAI = newEnemy.GetComponent<EnemyBase>();
                 enemyAI.target = playerWorld.CurrentPlayerGameObject.transform;
+                enemyAI.Initialize();
             }
         }
     }
