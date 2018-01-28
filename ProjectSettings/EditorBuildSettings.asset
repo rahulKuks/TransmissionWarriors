@@ -4,4 +4,16 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_Scenes/StartScreen.unity
+    guid: 4add8b51bd33840d8b15b5841f18f72d
+  - enabled: 1
+    path: Assets/_Scenes/HowToPlayScreen.unity
+    guid: 45306bba011744a6790906e987064528
+  - enabled: 1
+    path: Assets/_Scenes/Main_Rahul.unity
+    guid: 33585bfce6be542a69909ee24c381473
+  - enabled: 1
+    path: Assets/_Scenes/EndScreen.unity
+    guid: fe372d357b90740d38fafb5a4ad607c3
