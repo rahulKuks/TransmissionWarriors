@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 136739155012979186}
   - component: {fileID: 23054779373186858}
   - component: {fileID: 114385683995084386}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 54248894566889984}
   - component: {fileID: 114227482064669124}
   - component: {fileID: 136637129457171062}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1530697538509008}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12.391148, y: 12.479865, z: -7.3712387}
+  m_LocalPosition: {x: 12.391148, y: 13.4, z: -7.3712387}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4257360131493934}
@@ -186,7 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31db51d54b9c51c419932d864e56ea42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerID: 0
+  PlayerID: 1
   facing: 0
   speed: 0.3
   jumpPower: 0.5
@@ -194,10 +194,10 @@ MonoBehaviour:
   jumpCD: 0.5
   fireCD: 0.2
   gun: {fileID: 114385683995084386}
-  maxHP: 50
+  maxHP: 500
   currentHP: 0
   immuneTime: 2
-  bounceDistance: 0.3
+  bounceDistance: 2
   meleeCD: 3
   meleeDamage: 100
   meleeBounceStrength: 3
