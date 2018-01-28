@@ -30,6 +30,7 @@ public class PlayerControl : MonoBehaviour
     public float meleeCD = 3f;
     private float currentMeleeCd = 0f;
     public int meleeDamage = 100;
+    public float meleeBounceStrength = 1.0f; //how much the melee attack will bounce the enemy away
 
 
 
@@ -167,9 +168,9 @@ public class PlayerControl : MonoBehaviour
         
     }
 
-    void Melee()
+    void Melee(EnemyBase enemy)
     {
-        //TODO
+        enemy.GetHit(meleeDamage, this.gameObject.transform, meleeBounceStrength);
     }
     void Die()
     {
@@ -286,23 +287,28 @@ public class PlayerControl : MonoBehaviour
         {
             return;
         }
-        if(Vector3.Dot((other.transform.position-transform.position)/*vector from player to enemy*/, transform.forward) > 0)
+        if (other.tag.Equals("Enemy"))
         {
-            if (PlayerID == PlayerTag.Player1)
+            EnemyBase enemy = other.gameObject.GetComponent<EnemyBase>();
+            if (Vector3.Dot((other.transform.position - transform.position)/*vector from player to enemy*/, transform.forward) > 0)
             {
-                if (Input.GetKeyDown(KeyCode.V))
+                if (PlayerID == PlayerTag.Player1)
                 {
-                    Melee();
+                    if (Input.GetKeyDown(KeyCode.V))
+                    {
+                        Melee(enemy );
+                    }
                 }
-            }
-            else if (PlayerID == PlayerTag.Player2)
-            {
-                if (Input.GetKeyDown(KeyCode.I))
+                else if (PlayerID == PlayerTag.Player2)
                 {
-                    Melee();
+                    if (Input.GetKeyDown(KeyCode.I))
+                    {
+                        Melee(enemy);
+                    }
                 }
             }
         }
+       
         
     }
 }
