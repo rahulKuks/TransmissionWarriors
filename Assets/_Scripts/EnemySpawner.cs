@@ -96,6 +96,12 @@ public class EnemySpawner : MonoBehaviour
             }
 
             newEnemy.layer = playerWorld.CurrentPlayerLayer;
+
+            foreach (Transform child in newEnemy.GetComponentsInChildren<Transform>())
+            {
+                child.gameObject.layer = playerWorld.CurrentPlayerLayer;
+            }
+            
             BoxCollider randomSpawnPlane = spawnPlanes[Random.Range(0, spawnPlanes.Length - 1)];
             BoxCollider newEnemyBox = newEnemy.GetComponent<BoxCollider>();
             if (newEnemyBox != null)
