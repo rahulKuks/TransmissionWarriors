@@ -41,15 +41,11 @@ public class PlayerControl : MonoBehaviour
                 setDirection();
                 if (!isAiming())//not aiming means: moving
                 {
-
                     //  movement 
                     float x = Input.GetAxis("Horizontal");
                     float z = Input.GetAxis("Vertical");
 
-
-
                     rb.velocity += new Vector3(x, 0, z).normalized * speed;
-
                 }
             }
 
@@ -72,7 +68,7 @@ public class PlayerControl : MonoBehaviour
             currentFireCD -= Time.deltaTime;
             if (isAiming())
             {
-                if (Input.GetKey(KeyCode.F) && currentFireCD <= 0)
+                if ( (Input.GetKey(KeyCode.F) || Input.GetButtonDown("Fire1") ) && currentFireCD <= 0)
                 {
                     gun.Fire(currentPlayerWorld.CurrentPlayerLayer);
                     currentFireCD = fireCD;
@@ -90,15 +86,11 @@ public class PlayerControl : MonoBehaviour
                 setDirection();
                 if (!isAiming())//not aiming means: moving
                 {
-
                     //  movement 
                     float x = Input.GetAxis("Horizontal2");
                     float z = Input.GetAxis("Vertical2");
 
-
-
                     rb.velocity += new Vector3(x, 0, z).normalized * speed;
-
                 }
             }
 
@@ -121,21 +113,10 @@ public class PlayerControl : MonoBehaviour
             currentFireCD -= Time.deltaTime;
             if (isAiming())
             {
-                if ( currentFireCD <= 0)
+                if ((Input.GetKey(KeyCode.L) || Input.GetButtonDown("Fire2")) && currentFireCD <= 0)
                 {
-                    if (tag == PlayerTag.Player1 && Input.GetKey(KeyCode.F))
-                    {
-                        gun.Fire(currentPlayerWorld.CurrentPlayerLayer);
-                        currentFireCD = fireCD;
-                    }
-                    
-
-                    if (tag == PlayerTag.Player2 && Input.GetKey(KeyCode.L))
-                    {
-                        gun.Fire(currentPlayerWorld.CurrentPlayerLayer);
-                        currentFireCD = fireCD;
-                    }
-                        
+                    gun.Fire(currentPlayerWorld.CurrentPlayerLayer);
+                    currentFireCD = fireCD;
                 }
             }
 
@@ -162,11 +143,11 @@ public class PlayerControl : MonoBehaviour
     {
         if (tag== PlayerTag.Player1)
         {
-            return Input.GetKey(KeyCode.LeftShift);
+            return Input.GetKey(KeyCode.LeftShift) || Input.GetButton("Aim1");
         }
         else //if (tag == PlayerTag.Player2)
         {
-            return Input.GetKey(KeyCode.K);
+            return Input.GetKey(KeyCode.K) || Input.GetButton("Aim2");
         }
         
     }
