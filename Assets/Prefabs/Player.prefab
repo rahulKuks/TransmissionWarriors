@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 136739155012979186}
   - component: {fileID: 23054779373186858}
   - component: {fileID: 114385683995084386}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,8 +43,8 @@ GameObject:
   - component: {fileID: 23114659999463458}
   - component: {fileID: 54248894566889984}
   - component: {fileID: 114227482064669124}
-  m_Layer: 8
-  m_Name: Player1
+  m_Layer: 0
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -185,13 +185,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31db51d54b9c51c419932d864e56ea42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  facing: 1
+  tag: 0
+  facing: 0
   speed: 0.3
   jumpPower: 0.5
   rb: {fileID: 54248894566889984}
   jumpCD: 0.5
   fireCD: 0.2
   gun: {fileID: 114385683995084386}
+  maxHP: 50
+  currentHP: 0
+  immuneTime: 2
+  bonceDistance: 0.3
 --- !u!114 &114385683995084386
 MonoBehaviour:
   m_ObjectHideFlags: 1

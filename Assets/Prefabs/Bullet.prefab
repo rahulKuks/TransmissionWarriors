@@ -25,8 +25,8 @@ GameObject:
   - component: {fileID: 54449370194434912}
   - component: {fileID: 114599948442530052}
   m_Layer: 0
-  m_Name: Bullet1
-  m_TagString: Untagged
+  m_Name: Bullet
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,6 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f889e9571f14b548a87672b6914a983, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Damage: 5
 --- !u!136 &136405509853939720
 CapsuleCollider:
   m_ObjectHideFlags: 1
