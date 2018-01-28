@@ -32,6 +32,10 @@ public class PlayerControl : MonoBehaviour
     public int meleeDamage = 100;
     public float meleeBounceStrength = 3.0f; //how much the melee attack will bounce the enemy away
 
+    //audio
+    public AudioSource MeleeSFX;
+    public AudioSource RangeSFX;
+
     public HpBar hpBar;
 
     [SerializeField]
@@ -84,7 +88,7 @@ public class PlayerControl : MonoBehaviour
 
             // jump
 
-            if (Input.GetKey(KeyCode.C)) //Melee input
+            if (Input.GetKey(KeyCode.V)) //Melee input
             {
 
                 /*onAirTime += Time.deltaTime;
@@ -111,6 +115,7 @@ public class PlayerControl : MonoBehaviour
                 if ( (Input.GetKey(KeyCode.F) || Input.GetButtonDown("Fire1") ) && currentFireCD <= 0)
                 {
                     gun.Fire(currentPlayerWorld.CurrentPlayerLayer);
+                RangeSFX.Play();
                     currentFireCD = fireCD;
                 }
            // }
@@ -169,7 +174,8 @@ public class PlayerControl : MonoBehaviour
                 if ((Input.GetKey(KeyCode.L) || Input.GetButtonDown("Fire2")) && currentFireCD <= 0)
                 {
                     gun.Fire(currentPlayerWorld.CurrentPlayerLayer);
-                    currentFireCD = fireCD;
+                RangeSFX.Play();
+                currentFireCD = fireCD;
                 }
           //  }
 
@@ -220,7 +226,7 @@ public class PlayerControl : MonoBehaviour
     void Melee(EnemyBase enemy)
     {
         enemy.GetHit(meleeDamage, this.gameObject.transform, meleeBounceStrength);
-        Debug.Log("Hit!!");
+        MeleeSFX.Play();
     }
     void Die()
     {
