@@ -8,6 +8,7 @@ public class EnemyBase : MonoBehaviour
     {
         Idle,
         Attacking,
+        InTransmission,
         Dead
     }
 
@@ -67,6 +68,11 @@ public class EnemyBase : MonoBehaviour
         currentHealth = maxHealth;
         currentState = EnemyState.Idle;
         gameObject.SetActive(true);
+    }
+
+    public void SetState(EnemyState newState)
+    {
+        CurrentState = newState;
     }
 
     public void GetHit(int damage, Transform attacker, float bounceMultiplier = 1f)
