@@ -186,7 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31db51d54b9c51c419932d864e56ea42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tag: 0
+  PlayerID: 0
   facing: 0
   speed: 0.3
   jumpPower: 0.5
@@ -197,9 +197,10 @@ MonoBehaviour:
   maxHP: 50
   currentHP: 0
   immuneTime: 2
-  bonceDistance: 0.3
+  bounceDistance: 0.3
   meleeCD: 3
   meleeDamage: 100
+  meleeBounceStrength: 3
   currentPlayerWorld: {fileID: 0}
 --- !u!114 &114385683995084386
 MonoBehaviour:

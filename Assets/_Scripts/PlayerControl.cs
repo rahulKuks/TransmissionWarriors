@@ -30,7 +30,7 @@ public class PlayerControl : MonoBehaviour
     public float meleeCD = 3f;
     private float currentMeleeCd = 0f;
     public int meleeDamage = 100;
-    public float meleeBounceStrength = 1.0f; //how much the melee attack will bounce the enemy away
+    public float meleeBounceStrength = 3.0f; //how much the melee attack will bounce the enemy away
 
 
 
@@ -171,6 +171,7 @@ public class PlayerControl : MonoBehaviour
     void Melee(EnemyBase enemy)
     {
         enemy.GetHit(meleeDamage, this.gameObject.transform, meleeBounceStrength);
+        Debug.Log("Hit!!");
     }
     void Die()
     {
