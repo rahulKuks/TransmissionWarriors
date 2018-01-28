@@ -613,6 +613,7 @@ MonoBehaviour:
   - {fileID: 729604524}
   playerWorld: {fileID: 565800233}
   safeZonePercent: 0.05
+  spawnInterval: 15
 --- !u!114 &565800233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1557,6 +1558,7 @@ MonoBehaviour:
   - {fileID: 672728367}
   playerWorld: {fileID: 1811303916}
   safeZonePercent: 0.05
+  spawnInterval: 15
 --- !u!114 &1811303916
 MonoBehaviour:
   m_ObjectHideFlags: 0
