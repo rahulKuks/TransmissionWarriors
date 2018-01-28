@@ -36,6 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4250428127138868}
   - component: {fileID: 95859839434572994}
+  - component: {fileID: 114089670902855154}
   m_Layer: 0
   m_Name: TriBot-001
   m_TagString: Untagged
@@ -612,6 +613,17 @@ MonoBehaviour:
   maxHealth: 1000
   damage: 100
   bounceDistance: 2
+--- !u!114 &114089670902855154
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1070929804290618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4822a3ee9dc816d438de637f9815c612, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!137 &137639670996166424
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
