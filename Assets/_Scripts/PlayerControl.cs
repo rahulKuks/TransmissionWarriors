@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
+    public enum PlayerTag { Player1, Player2};
+    public PlayerTag tag = PlayerTag.Player1;
     public enum Direction { North, East, South, West,NE,NW,SE,SW };
     public Direction facing = Direction.South;
     public float speed = 0.5f;
@@ -29,55 +31,117 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        
-        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) //pressing direction key(s)
+        if (tag == PlayerTag.Player1)
         {
-            setDirection();
-            Debug.Log("Direction:" + facing);
-            if (!isAiming())//not aiming means: moving
+            if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) //pressing direction key(s)
+            {
+                setDirection();
+                Debug.Log("Direction:" + facing);
+                if (!isAiming())//not aiming means: moving
+                {
+
+                    //  movement 
+                    float x = Input.GetAxis("Horizontal");
+                    float z = Input.GetAxis("Vertical");
+
+
+
+                    rb.velocity += new Vector3(x, 0, z).normalized * speed;
+
+                }
+            }
+
+
+            // jump
+
+            if (Input.GetKey(KeyCode.C)) //jump input
             {
 
-                //  movement 
-                float x = Input.GetAxis("Horizontal");
-                float z = Input.GetAxis("Vertical");
+                onAirTime += Time.deltaTime;
+                //check is jump input in valid (can keep jumping (as strength of jump) for a short while, after that character falls down, this time counter reset when the player hits the ground)
+                if (onAirTime < jumpCD)
+                {
+                    rb.velocity += Vector3.up * jumpPower;
+                }
 
+            };
 
-
-                rb.velocity += new Vector3(x, 0, z).normalized * speed;
-
+            // aim, then fire
+            currentFireCD -= Time.deltaTime;
+            if (isAiming())
+            {
+                if (Input.GetKey(KeyCode.F) && currentFireCD <= 0)
+                {
+                    gun.Fire();
+                    currentFireCD = fireCD;
+                }
             }
+
+
+            //  Debug.Log("OnAirTime" + onAirTime);
+            remainingImmuneTime -= Time.deltaTime;
         }
-        
-
-        // jump
-
-        if (Input.GetKey(KeyCode.C)) //jump input
+        else if (tag == PlayerTag.Player2)
         {
-
-            onAirTime += Time.deltaTime;
-            //check is jump input in valid (can keep jumping (as strength of jump) for a short while, after that character falls down, this time counter reset when the player hits the ground)
-            if (onAirTime < jumpCD)
+            if (Input.GetAxis("Horizontal2") != 0 || Input.GetAxis("Vertical2") != 0) //pressing direction key(s)
             {
-                rb.velocity += Vector3.up * jumpPower;
+                setDirection();
+                Debug.Log("Direction:" + facing);
+                if (!isAiming())//not aiming means: moving
+                {
+
+                    //  movement 
+                    float x = Input.GetAxis("Horizontal2");
+                    float z = Input.GetAxis("Vertical2");
+
+
+
+                    rb.velocity += new Vector3(x, 0, z).normalized * speed;
+
+                }
             }
 
-        };
 
-        // aim, then fire
-        currentFireCD -= Time.deltaTime;
-        if (isAiming())
-        {
-            if (Input.GetKey(KeyCode.F) && currentFireCD<=0)
+            // jump
+
+            if (Input.GetKey(KeyCode.J)) //jump input
             {
-                gun.Fire();
-                currentFireCD = fireCD;
+
+                onAirTime += Time.deltaTime;
+                //check is jump input in valid (can keep jumping (as strength of jump) for a short while, after that character falls down, this time counter reset when the player hits the ground)
+                if (onAirTime < jumpCD)
+                {
+                    rb.velocity += Vector3.up * jumpPower;
+                }
+
+            };
+
+            // aim, then fire
+            currentFireCD -= Time.deltaTime;
+            if (isAiming())
+            {
+                if ( currentFireCD <= 0)
+                {
+                    if (tag == PlayerTag.Player1 && Input.GetKey(KeyCode.F))
+                    {
+                        gun.Fire();
+                        currentFireCD = fireCD;
+                    }
+                    
+
+                    if (tag == PlayerTag.Player2 && Input.GetKey(KeyCode.L))
+                    {
+                        gun.Fire();
+                        currentFireCD = fireCD;
+                    }
+                        
+                }
             }
+
+
+            //  Debug.Log("OnAirTime" + onAirTime);
+            remainingImmuneTime -= Time.deltaTime;
         }
-
-
-        //  Debug.Log("OnAirTime" + onAirTime);
-        remainingImmuneTime -= Time.deltaTime;
-
     }
 
     void TakeDamage(int monsterAttack)
@@ -95,7 +159,15 @@ public class PlayerControl : MonoBehaviour
     //helper functions
     bool isAiming()
     {
-        return Input.GetKey(KeyCode.LeftShift);
+        if (tag== PlayerTag.Player1)
+        {
+            return Input.GetKey(KeyCode.LeftShift);
+        }
+        else //if (tag == PlayerTag.Player2)
+        {
+            return Input.GetKey(KeyCode.K);
+        }
+        
     }
 
     void Die()
@@ -107,7 +179,13 @@ public class PlayerControl : MonoBehaviour
     {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
-        if (Input.GetAxis("Horizontal") != 0) //has x componet in world coodinate
+        //discard the previous lines, for player2, check on player2 input sets
+        if (tag == PlayerTag.Player2)
+        {
+            x = Input.GetAxis("Horizontal2");
+            z = Input.GetAxis("Vertical2");
+        }
+        if (x != 0) //has x componet in world coodinate
         {
             if (x > 0)//somewhere east
             {
