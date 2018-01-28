@@ -19,9 +19,9 @@ public class Bullet : MonoBehaviour
         if (LifeTime <= 0) { Destroy(this.gameObject); }
 	}
 
-    private void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.tag.Equals("Floor"))
+        if (collision.gameObject.tag.Equals("Floor") || collision.gameObject.tag.Equals("Enemy"))
         {
             Destroy(this.gameObject);
         }

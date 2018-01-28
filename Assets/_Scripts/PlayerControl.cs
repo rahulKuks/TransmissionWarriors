@@ -319,16 +319,16 @@ public class PlayerControl : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)//trigger collider for melee attack
     {
         if (other.CompareTag("Enemy"))
         {
             EnemyBase enemy = other.gameObject.GetComponent<EnemyBase>();
             if (remainingImmuneTime <= 0)
             {
-                Vector3 bounceDirection = (transform.position - enemy.transform.position).normalized;
+                Vector3 bounceDirection = (enemy.transform.position - transform.position).normalized;
                 bounceDirection *= bounceDistance;
-                transform.Translate( new Vector3(bounceDirection.x, 0, bounceDirection.z) );
+                transform.Translate(new Vector3(bounceDirection.x, 0, bounceDirection.z));
 
                 TakeDamage(enemy.Damage);
                 if (currentHP <= 0)
@@ -337,37 +337,6 @@ public class PlayerControl : MonoBehaviour
                 }
             }
         }
-    }
-
-    private void OnTriggerStay(Collider other)//trigger collider for melee attack
-    {
-        if (currentMeleeCd > 0)
-        {
-            return;
-        }
-        if (other.tag.Equals("Enemy"))
-        {
-            EnemyBase enemy = other.gameObject.GetComponent<EnemyBase>();
-            if (Vector3.Dot((other.transform.position - transform.position)/*vector from player to enemy*/, transform.forward) > 0)
-            {
-                if (PlayerID == PlayerTag.Player1)
-                {
-                    if (Input.GetKeyDown(KeyCode.V))
-                    {
-                        Melee(enemy );
-                    }
-                }
-                else if (PlayerID == PlayerTag.Player2)
-                {
-                    if (Input.GetKeyDown(KeyCode.I))
-                    {
-                        Melee(enemy);
-                    }
-                }
-            }
-        }
-       
-        
     }
 
     Vector3 getCameraMovement(float x, float z)
