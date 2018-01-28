@@ -16,21 +16,30 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private float safeZonePercent = 0.05f;
 
+    [SerializeField]
+    private float spawnInterval = 15f;
+
     public List<GameObject> Enemies { set; get; }
     private List<GameObject> EnemiesToRemove = new List<GameObject>();
+
+    private float spawnTimer;
 
 	private void Start ()
     {
         Enemies = new List<GameObject>();
         Enemies.Add(SpawnEnemy());
-        Enemies.Add(SpawnEnemy());
-        Enemies.Add(SpawnEnemy());
-        Enemies.Add(SpawnEnemy());
-        Enemies.Add(SpawnEnemy());
     }
 
     private void Update()
     {
+        spawnTimer += Time.deltaTime;
+
+        if(spawnTimer >= spawnInterval)
+        {
+            spawnTimer = spawnInterval - spawnTimer;
+            Enemies.Add(SpawnEnemy());
+        }
+
         foreach(GameObject currentEnemy in Enemies)
         {
             EnemyBase enemyBase = currentEnemy.GetComponent<EnemyBase>();

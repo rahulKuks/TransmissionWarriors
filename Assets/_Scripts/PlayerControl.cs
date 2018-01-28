@@ -20,10 +20,14 @@ public class PlayerControl : MonoBehaviour
     public int currentHP;
     public float immuneTime = 2f;
     private float remainingImmuneTime = 0f;
+<<<<<<< HEAD
     public float bonceDistance = 0.3f;
     public float meleeCD = 3f;
     private float currentMeleeCd = 0f;
     public int meleeDamage = 100;
+=======
+    public float bounceDistance = 0.3f;
+>>>>>>> a6d299d4cbbf12bd2404dc0c87305c8f77270c01
 
     [SerializeField]
     private PlayerWorld currentPlayerWorld;
@@ -45,15 +49,11 @@ public class PlayerControl : MonoBehaviour
                 setDirection();
                 if (!isAiming())//not aiming means: moving
                 {
-
                     //  movement 
                     float x = Input.GetAxis("Horizontal");
                     float z = Input.GetAxis("Vertical");
 
-
-
                     rb.velocity += new Vector3(x, 0, z).normalized * speed;
-
                 }
             }
 
@@ -76,7 +76,7 @@ public class PlayerControl : MonoBehaviour
             currentFireCD -= Time.deltaTime;
             if (isAiming())
             {
-                if (Input.GetKey(KeyCode.F) && currentFireCD <= 0)
+                if ( (Input.GetKey(KeyCode.F) || Input.GetButtonDown("Fire1") ) && currentFireCD <= 0)
                 {
                     gun.Fire(currentPlayerWorld.CurrentPlayerLayer);
                     currentFireCD = fireCD;
@@ -94,15 +94,11 @@ public class PlayerControl : MonoBehaviour
                 setDirection();
                 if (!isAiming())//not aiming means: moving
                 {
-
                     //  movement 
                     float x = Input.GetAxis("Horizontal2");
                     float z = Input.GetAxis("Vertical2");
 
-
-
                     rb.velocity += new Vector3(x, 0, z).normalized * speed;
-
                 }
             }
 
@@ -125,21 +121,10 @@ public class PlayerControl : MonoBehaviour
             currentFireCD -= Time.deltaTime;
             if (isAiming())
             {
-                if ( currentFireCD <= 0)
+                if ((Input.GetKey(KeyCode.L) || Input.GetButtonDown("Fire2")) && currentFireCD <= 0)
                 {
-                    if (tag == PlayerTag.Player1 && Input.GetKey(KeyCode.F))
-                    {
-                        gun.Fire(currentPlayerWorld.CurrentPlayerLayer);
-                        currentFireCD = fireCD;
-                    }
-                    
-
-                    if (tag == PlayerTag.Player2 && Input.GetKey(KeyCode.L))
-                    {
-                        gun.Fire(currentPlayerWorld.CurrentPlayerLayer);
-                        currentFireCD = fireCD;
-                    }
-                        
+                    gun.Fire(currentPlayerWorld.CurrentPlayerLayer);
+                    currentFireCD = fireCD;
                 }
             }
 
@@ -166,11 +151,11 @@ public class PlayerControl : MonoBehaviour
     {
         if (tag== PlayerTag.Player1)
         {
-            return Input.GetKey(KeyCode.LeftShift);
+            return Input.GetKey(KeyCode.LeftShift) || Input.GetButton("Aim1");
         }
         else //if (tag == PlayerTag.Player2)
         {
-            return Input.GetKey(KeyCode.K);
+            return Input.GetKey(KeyCode.K) || Input.GetButton("Aim2");
         }
         
     }
@@ -181,6 +166,7 @@ public class PlayerControl : MonoBehaviour
     }
     void Die()
     {
+        Destroy(gameObject);
         //TODO
     }
 
@@ -264,24 +250,27 @@ public class PlayerControl : MonoBehaviour
                 }
             }
         }
-        else if (collision.collider.tag.Equals("Enemy"))
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
         {
-            
-            EnemyBase enemy = collision.collider.gameObject.GetComponent<EnemyBase>();
+            EnemyBase enemy = other.gameObject.GetComponent<EnemyBase>();
             if (remainingImmuneTime <= 0)
             {
-                Vector3 bonceDirection = (transform.position - enemy.transform.position).normalized;
-                transform.Translate(bonceDirection * bonceDistance);
-                //TODO
-                //TakeDamage(enemy.Attack);
+                Vector3 bounceDirection = (transform.position - enemy.transform.position).normalized;
+                bounceDirection *= bounceDistance;
+                transform.Translate( new Vector3(bounceDirection.x, 0, bounceDirection.z) );
+
+                TakeDamage(enemy.Damage);
                 if (currentHP <= 0)
                 {
                     Die();
                 }
             }
-           
         }
-
     }
 
     private void OnTriggerStay(Collider other)//trigger collider for melee attack
