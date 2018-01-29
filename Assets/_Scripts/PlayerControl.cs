@@ -90,7 +90,7 @@ public class PlayerControl : MonoBehaviour
 
             // jump
 
-            if (Input.GetKey(KeyCode.V)) //Melee input
+            if (Input.GetKey(KeyCode.V) || Input.GetButtonDown("Melee")) //Melee input
             {
 
                 /*onAirTime += Time.deltaTime;
@@ -154,7 +154,7 @@ public class PlayerControl : MonoBehaviour
 
             // jump
 
-            if (Input.GetKey(KeyCode.J)) //melee input
+            if (Input.GetKey(KeyCode.J) || Input.GetButtonDown("Melee2")) //melee input
             {
 
                 /* onAirTime += Time.deltaTime;

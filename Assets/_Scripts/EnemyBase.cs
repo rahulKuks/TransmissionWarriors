@@ -51,6 +51,9 @@ public class EnemyBase : MonoBehaviour
             }
 
             currentState = EnemyState.Idle;
+
+            Vector3 cacheRotation = transform.rotation.eulerAngles;
+            transform.LookAt(target, Vector3.up);
         }
     }
 

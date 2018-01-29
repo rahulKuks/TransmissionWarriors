@@ -21,6 +21,12 @@ public class GameLoop : MonoBehaviour
     [SerializeField]
     private UIManager uiManager;
 
+    [SerializeField]
+    private AudioSource p1Wins;
+
+    [SerializeField]
+    private AudioSource p2Wins;
+
     private string winnerPlayer;
 
 	void Start ()
@@ -48,6 +54,16 @@ public class GameLoop : MonoBehaviour
                     {
                         CurrentState = GameState.TriggerGameOver;
                         winnerPlayer = ( ((float)(playerWorld.CurrentPlayer.PlayerID + 1) % 2) + 1 ).ToString();
+
+                        if(playerWorld.CurrentPlayer.PlayerID == 0)
+                        {
+                            p1Wins.Play();
+                        }
+                        else
+                        {
+                            p2Wins.Play();
+                        }
+
                         break;
                     }
                 }
